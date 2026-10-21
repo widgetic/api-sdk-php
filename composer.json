@@ -1,0 +1,44 @@
+{
+  "name": "widgetic/api-sdk-php",
+  "version": "1.11.66",
+  "description": "API documentation for the Widgetic API Gateway",
+  "keywords": [
+    "openapitools",
+    "openapi-generator",
+    "openapi",
+    "php",
+    "sdk",
+    "rest",
+    "api"
+  ],
+  "homepage": "https://docs.widgetic.com/",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Widgetic",
+      "homepage": "https://docs.widgetic.com/"
+    }
+  ],
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "guzzlehttp/guzzle": "^7.3",
+    "guzzlehttp/psr7": "^1.7 || ^2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.0 || ^9.0",
+    "friendsofphp/php-cs-fixer": "^3.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "WidgeticApi\\": "lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "WidgeticApi\\Test\\": "test/"
+    }
+  }
+}
