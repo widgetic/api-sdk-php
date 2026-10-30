@@ -280,6 +280,7 @@ class EditorSession implements ModelInterface, ArrayAccess, \JsonSerializable
     public const SURFACES_FILES = 'files';
     public const SURFACES_EDITOR = 'editor';
     public const SURFACES_CREATOR = 'creator';
+    public const SURFACES_WORKFLOWS = 'workflows';
 
     /**
      * Gets allowable values of the enum
@@ -292,6 +293,7 @@ class EditorSession implements ModelInterface, ArrayAccess, \JsonSerializable
             self::SURFACES_FILES,
             self::SURFACES_EDITOR,
             self::SURFACES_CREATOR,
+            self::SURFACES_WORKFLOWS,
         ];
     }
 

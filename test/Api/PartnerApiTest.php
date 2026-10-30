@@ -84,12 +84,36 @@ class PartnerApiTest extends TestCase
     }
 
     /**
+     * Test case for addAiAnswersKnowledgeFile
+     *
+     * Add a text file or a picture of a document (a PDF once PDFs are read) for a widget's AI to answer from.
+     *
+     */
+    public function testAddAiAnswersKnowledgeFile()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for addPersonalWorkspaceDomain
      *
      * Allow a website to show your widgets.
      *
      */
     public function testAddPersonalWorkspaceDomain()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for archiveWorkspaceWorkflow
+     *
+     * Archive a Workflow.
+     *
+     */
+    public function testArchiveWorkspaceWorkflow()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -114,6 +138,30 @@ class PartnerApiTest extends TestCase
      *
      */
     public function testCheckCompositionAccess()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for confirmPartnerAdapterConnection
+     *
+     * Confirm a partner's adapter address with the code that was emailed to it.
+     *
+     */
+    public function testConfirmPartnerAdapterConnection()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for confirmUserAdapterConnection
+     *
+     * Confirm an adapter address with the code that was emailed to it.
+     *
+     */
+    public function testConfirmUserAdapterConnection()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -276,6 +324,54 @@ class PartnerApiTest extends TestCase
     }
 
     /**
+     * Test case for createWorkspaceWorkflow
+     *
+     * Create a Workflow.
+     *
+     */
+    public function testCreateWorkspaceWorkflow()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for createWorkspaceWorkflowFromPreset
+     *
+     * Start a Workflow from a starting point.
+     *
+     */
+    public function testCreateWorkspaceWorkflowFromPreset()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for deleteBrandKit
+     *
+     * Reset the Brand Kit to the default.
+     *
+     */
+    public function testDeleteBrandKit()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for deleteBrandKitAsset
+     *
+     * Remove a font or icon from the Brand Kit.
+     *
+     */
+    public function testDeleteBrandKitAsset()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for deleteCanvas
      *
      * Delete Canvas.
@@ -384,6 +480,18 @@ class PartnerApiTest extends TestCase
     }
 
     /**
+     * Test case for deleteWorkspaceWorkflow
+     *
+     * Delete a Workflow.
+     *
+     */
+    public function testDeleteWorkspaceWorkflow()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for describeCompositionEntries
      *
      * Describe What a Composition Keeps.
@@ -396,12 +504,36 @@ class PartnerApiTest extends TestCase
     }
 
     /**
+     * Test case for discardWorkspaceWorkflowChanges
+     *
+     * Discard the Unpublished Changes of a Workflow.
+     *
+     */
+    public function testDiscardWorkspaceWorkflowChanges()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for duplicateComposition
      *
      * Duplicate Composition.
      *
      */
     public function testDuplicateComposition()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for duplicateWorkspaceWorkflow
+     *
+     * Duplicate a Workflow.
+     *
+     */
+    public function testDuplicateWorkspaceWorkflow()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -462,6 +594,18 @@ class PartnerApiTest extends TestCase
      *
      */
     public function testGetAllManagedUsers()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for getBrandKit
+     *
+     * The Brand Kit of the current workspace.
+     *
+     */
+    public function testGetBrandKit()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -972,6 +1116,42 @@ class PartnerApiTest extends TestCase
     }
 
     /**
+     * Test case for getPublicWorkflow
+     *
+     * Read the published Workflow of an embed.
+     *
+     */
+    public function testGetPublicWorkflow()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for getPublicWorkflowFrame
+     *
+     * Show a published Workflow in a page of its own.
+     *
+     */
+    public function testGetPublicWorkflowFrame()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for getPublicWorkflowVersion
+     *
+     * Read one published version of a Workflow.
+     *
+     */
+    public function testGetPublicWorkflowVersion()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for getUserAdapterConnections
      *
      * See which adapter keys an account has connected.
@@ -1056,6 +1236,42 @@ class PartnerApiTest extends TestCase
     }
 
     /**
+     * Test case for getWorkspaceWorkflow
+     *
+     * Get a Workflow.
+     *
+     */
+    public function testGetWorkspaceWorkflow()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for getWorkspaceWorkflowStats
+     *
+     * Get what Visitors Did in a Workflow.
+     *
+     */
+    public function testGetWorkspaceWorkflowStats()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for getWorkspaceWorkflowVersion
+     *
+     * Get a Published Version of a Workflow.
+     *
+     */
+    public function testGetWorkspaceWorkflowVersion()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for listCompositionEntryItems
      *
      * List composition entry items with paging and filters.
@@ -1116,12 +1332,96 @@ class PartnerApiTest extends TestCase
     }
 
     /**
+     * Test case for listPartnerWorkflowPresets
+     *
+     * List the workflows a partner offers as places to start.
+     *
+     */
+    public function testListPartnerWorkflowPresets()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for listWorkspaceWorkflowCompositionOptions
+     *
+     * List the compositions a workflow can show, and what each can do.
+     *
+     */
+    public function testListWorkspaceWorkflowCompositionOptions()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for listWorkspaceWorkflowPresets
+     *
+     * List the starting points for a new Workflow.
+     *
+     */
+    public function testListWorkspaceWorkflowPresets()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for listWorkspaceWorkflowVersions
+     *
+     * List the Published Versions of a Workflow.
+     *
+     */
+    public function testListWorkspaceWorkflowVersions()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for listWorkspaceWorkflows
+     *
+     * List the Workflows of a Workspace.
+     *
+     */
+    public function testListWorkspaceWorkflows()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for operationsIdGet
      *
      * Get operation status.
      *
      */
     public function testOperationsIdGet()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for patchBrandKit
+     *
+     * Change part of the Brand Kit.
+     *
+     */
+    public function testPatchBrandKit()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for patchBrandKitAsset
+     *
+     * Rename an icon or relabel a font variant.
+     *
+     */
+    public function testPatchBrandKitAsset()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -1140,12 +1440,72 @@ class PartnerApiTest extends TestCase
     }
 
     /**
+     * Test case for pauseWorkspaceWorkflow
+     *
+     * Pause a Workflow.
+     *
+     */
+    public function testPauseWorkspaceWorkflow()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for postBrandKitFont
+     *
+     * Upload a font file to the Brand Kit.
+     *
+     */
+    public function testPostBrandKitFont()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for postBrandKitIcon
+     *
+     * Add a named SVG icon to the Brand Kit.
+     *
+     */
+    public function testPostBrandKitIcon()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for postPublicCompositionEmbedStatus
      *
      * Batch-check whether compositions are currently served for embed.
      *
      */
     public function testPostPublicCompositionEmbedStatus()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for publishWorkspaceWorkflow
+     *
+     * Publish the Draft of a Workflow.
+     *
+     */
+    public function testPublishWorkspaceWorkflow()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for putBrandKit
+     *
+     * Save Brand Kit tokens.
+     *
+     */
+    public function testPutBrandKit()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -1224,6 +1584,18 @@ class PartnerApiTest extends TestCase
     }
 
     /**
+     * Test case for removePartnerWorkflowPreset
+     *
+     * Stop offering a workflow as a place to start.
+     *
+     */
+    public function testRemovePartnerWorkflowPreset()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for removeUserAdapterConnection
      *
      * Remove an adapter key from an account.
@@ -1242,6 +1614,42 @@ class PartnerApiTest extends TestCase
      *
      */
     public function testReplayPartnerNotificationDelivery()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for reportPublicWorkflowEvents
+     *
+     * Report what visitors did in a Workflow, as counts.
+     *
+     */
+    public function testReportPublicWorkflowEvents()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for restoreWorkspaceWorkflowVersion
+     *
+     * Restore a Version of a Workflow into the Draft.
+     *
+     */
+    public function testRestoreWorkspaceWorkflowVersion()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for resumeWorkspaceWorkflow
+     *
+     * Resume a Paused Workflow.
+     *
+     */
+    public function testResumeWorkspaceWorkflow()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -1290,6 +1698,18 @@ class PartnerApiTest extends TestCase
      *
      */
     public function testRotatePartnerWebhookSecret()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for saveWorkspaceWorkflow
+     *
+     * Save the Draft of a Workflow.
+     *
+     */
+    public function testSaveWorkspaceWorkflow()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -1416,12 +1836,36 @@ class PartnerApiTest extends TestCase
     }
 
     /**
+     * Test case for setPartnerWorkflowPreset
+     *
+     * Offer a workflow as a place to start, or replace what a key offers.
+     *
+     */
+    public function testSetPartnerWorkflowPreset()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for setUserAdapterConnection
      *
      * Connect an adapter key to an account.
      *
      */
     public function testSetUserAdapterConnection()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for unarchiveWorkspaceWorkflow
+     *
+     * Unarchive a Workflow.
+     *
+     */
+    public function testUnarchiveWorkspaceWorkflow()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

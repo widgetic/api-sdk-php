@@ -53,19 +53,20 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $config = WidgeticApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new WidgeticApi\Api\CanvasesApi(
+$apiInstance = new WidgeticApi\Api\BrandKitApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$create_canvas_request = new \WidgeticApi\Model\CreateCanvasRequest(); // \WidgeticApi\Model\CreateCanvasRequest
+$asset_id = 'asset_id_example'; // string
+$organization_id = 'organization_id_example'; // string
 
 try {
-    $result = $apiInstance->createCanvas_0($create_canvas_request);
+    $result = $apiInstance->deleteBrandKitAsset_0($asset_id, $organization_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling CanvasesApi->createCanvas_0: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling BrandKitApi->deleteBrandKitAsset_0: ', $e->getMessage(), PHP_EOL;
 }
 
 ```
@@ -76,12 +77,21 @@ All URIs are relative to *https://api.widgetic.com/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*BrandKitApi* | [**deleteBrandKitAsset_0**](docs/Api/BrandKitApi.md#deletebrandkitasset_0) | **DELETE** /brand-kit/assets/{assetId} | Remove a font or icon from the Brand Kit
+*BrandKitApi* | [**deleteBrandKit_0**](docs/Api/BrandKitApi.md#deletebrandkit_0) | **DELETE** /brand-kit | Reset the Brand Kit to the default
+*BrandKitApi* | [**getBrandKit_0**](docs/Api/BrandKitApi.md#getbrandkit_0) | **GET** /brand-kit | The Brand Kit of the current workspace
+*BrandKitApi* | [**patchBrandKitAsset_0**](docs/Api/BrandKitApi.md#patchbrandkitasset_0) | **PATCH** /brand-kit/assets/{assetId} | Rename an icon or relabel a font variant
+*BrandKitApi* | [**patchBrandKit_0**](docs/Api/BrandKitApi.md#patchbrandkit_0) | **PATCH** /brand-kit | Change part of the Brand Kit
+*BrandKitApi* | [**postBrandKitFont_0**](docs/Api/BrandKitApi.md#postbrandkitfont_0) | **POST** /brand-kit/fonts | Upload a font file to the Brand Kit
+*BrandKitApi* | [**postBrandKitIcon_0**](docs/Api/BrandKitApi.md#postbrandkiticon_0) | **POST** /brand-kit/icons | Add a named SVG icon to the Brand Kit
+*BrandKitApi* | [**putBrandKit_0**](docs/Api/BrandKitApi.md#putbrandkit_0) | **PUT** /brand-kit | Save Brand Kit tokens
 *CanvasesApi* | [**createCanvas_0**](docs/Api/CanvasesApi.md#createcanvas_0) | **POST** /canvases | Create Canvas
 *CanvasesApi* | [**deleteCanvas_0**](docs/Api/CanvasesApi.md#deletecanvas_0) | **DELETE** /canvases/{id} | Delete Canvas
 *CanvasesApi* | [**getAllCanvases_0**](docs/Api/CanvasesApi.md#getallcanvases_0) | **GET** /canvases | Get All Canvases
 *CanvasesApi* | [**getCanvas_0**](docs/Api/CanvasesApi.md#getcanvas_0) | **GET** /canvases/{id} | Get Canvas
 *CanvasesApi* | [**updateCanvas_0**](docs/Api/CanvasesApi.md#updatecanvas_0) | **PUT** /canvases/{id} | Update Canvas
 *CompositionsApi* | [**addAiAnswersKnowledgeDocument_0**](docs/Api/CompositionsApi.md#addaianswersknowledgedocument_0) | **POST** /compositions/{id}/adapters/ai-answers/knowledge/documents | Add a document for a widget&#39;s AI to answer from
+*CompositionsApi* | [**addAiAnswersKnowledgeFile_0**](docs/Api/CompositionsApi.md#addaianswersknowledgefile_0) | **POST** /compositions/{id}/adapters/ai-answers/knowledge/documents/file | Add a text file or a picture of a document (a PDF once PDFs are read) for a widget&#39;s AI to answer from
 *CompositionsApi* | [**checkCompositionAccess_0**](docs/Api/CompositionsApi.md#checkcompositionaccess_0) | **GET** /compositions/{id}/access | Check Composition Access
 *CompositionsApi* | [**createCompositionContentItem_0**](docs/Api/CompositionsApi.md#createcompositioncontentitem_0) | **POST** /compositions/{id}/content/{list}/items | Add a content list item
 *CompositionsApi* | [**createCompositionDatabaseRecord_0**](docs/Api/CompositionsApi.md#createcompositiondatabaserecord_0) | **POST** /compositions/{id}/database/{table} | Create Record In Composition Database
@@ -140,9 +150,13 @@ Class | Method | HTTP request | Description
 *ManagedUsersApi* | [**updateManagedUser_0**](docs/Api/ManagedUsersApi.md#updatemanageduser_0) | **PUT** /managed-users/{id} | Update Managed User
 *OperationsApi* | [**operationsIdGet_0**](docs/Api/OperationsApi.md#operationsidget_0) | **GET** /operations/{id} | Get operation status
 *PartnerApi* | [**addAiAnswersKnowledgeDocument**](docs/Api/PartnerApi.md#addaianswersknowledgedocument) | **POST** /compositions/{id}/adapters/ai-answers/knowledge/documents | Add a document for a widget&#39;s AI to answer from
+*PartnerApi* | [**addAiAnswersKnowledgeFile**](docs/Api/PartnerApi.md#addaianswersknowledgefile) | **POST** /compositions/{id}/adapters/ai-answers/knowledge/documents/file | Add a text file or a picture of a document (a PDF once PDFs are read) for a widget&#39;s AI to answer from
 *PartnerApi* | [**addPersonalWorkspaceDomain**](docs/Api/PartnerApi.md#addpersonalworkspacedomain) | **POST** /users/{id}/workspace/domains | Allow a website to show your widgets
+*PartnerApi* | [**archiveWorkspaceWorkflow**](docs/Api/PartnerApi.md#archiveworkspaceworkflow) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/archive | Archive a Workflow
 *PartnerApi* | [**callPublicCompositionAdapter**](docs/Api/PartnerApi.md#callpubliccompositionadapter) | **POST** /embed/compositions/{compositionId}/adapters/{adapterId}/{operation} | Call a gateway operation of an adapter a published widget uses
 *PartnerApi* | [**checkCompositionAccess**](docs/Api/PartnerApi.md#checkcompositionaccess) | **GET** /compositions/{id}/access | Check Composition Access
+*PartnerApi* | [**confirmPartnerAdapterConnection**](docs/Api/PartnerApi.md#confirmpartneradapterconnection) | **POST** /partners/{partnerId}/adapter-connections/{adapterId}/{credentialKey}/confirm | Confirm a partner&#39;s adapter address with the code that was emailed to it
+*PartnerApi* | [**confirmUserAdapterConnection**](docs/Api/PartnerApi.md#confirmuseradapterconnection) | **POST** /users/{userId}/adapter-connections/{adapterId}/{credentialKey}/confirm | Confirm an adapter address with the code that was emailed to it
 *PartnerApi* | [**copyPresetForManagedUser**](docs/Api/PartnerApi.md#copypresetformanageduser) | **POST** /managed-users/{id}/presets/{key}/copy | Give a managed user a copy of one of your presets
 *PartnerApi* | [**createCanvas**](docs/Api/PartnerApi.md#createcanvas) | **POST** /canvases | Create Canvas
 *PartnerApi* | [**createComposition**](docs/Api/PartnerApi.md#createcomposition) | **POST** /compositions | Create Composition
@@ -156,6 +170,10 @@ Class | Method | HTTP request | Description
 *PartnerApi* | [**createPublicCompositionEntry**](docs/Api/PartnerApi.md#createpubliccompositionentry) | **POST** /embed/compositions/{compositionId}/entries/{table} | Append a visitor entry through the gateway
 *PartnerApi* | [**createUserApiKey**](docs/Api/PartnerApi.md#createuserapikey) | **POST** /users/{id}/keys | Create an API key
 *PartnerApi* | [**createWidget**](docs/Api/PartnerApi.md#createwidget) | **POST** /widgets | Create Widget
+*PartnerApi* | [**createWorkspaceWorkflow**](docs/Api/PartnerApi.md#createworkspaceworkflow) | **POST** /workspaces/{workspaceId}/workflows | Create a Workflow
+*PartnerApi* | [**createWorkspaceWorkflowFromPreset**](docs/Api/PartnerApi.md#createworkspaceworkflowfrompreset) | **POST** /workspaces/{workspaceId}/workflows/from-preset | Start a Workflow from a starting point
+*PartnerApi* | [**deleteBrandKit**](docs/Api/PartnerApi.md#deletebrandkit) | **DELETE** /brand-kit | Reset the Brand Kit to the default
+*PartnerApi* | [**deleteBrandKitAsset**](docs/Api/PartnerApi.md#deletebrandkitasset) | **DELETE** /brand-kit/assets/{assetId} | Remove a font or icon from the Brand Kit
 *PartnerApi* | [**deleteCanvas**](docs/Api/PartnerApi.md#deletecanvas) | **DELETE** /canvases/{id} | Delete Canvas
 *PartnerApi* | [**deleteComposition**](docs/Api/PartnerApi.md#deletecomposition) | **DELETE** /compositions/{id} | Delete Composition
 *PartnerApi* | [**deleteCompositionContentItem**](docs/Api/PartnerApi.md#deletecompositioncontentitem) | **DELETE** /compositions/{id}/content/{list}/items/{itemId} | Delete a content list item
@@ -165,13 +183,17 @@ Class | Method | HTTP request | Description
 *PartnerApi* | [**deleteManagedUser**](docs/Api/PartnerApi.md#deletemanageduser) | **DELETE** /managed-users/{id} | Delete Managed User
 *PartnerApi* | [**deletePersonalWorkspaceDomain**](docs/Api/PartnerApi.md#deletepersonalworkspacedomain) | **DELETE** /users/{id}/workspace/domains/{domainId} | Stop allowing a website to show your widgets
 *PartnerApi* | [**deleteUserApiKey**](docs/Api/PartnerApi.md#deleteuserapikey) | **DELETE** /users/{id}/keys/{keyId} | Delete an API key
+*PartnerApi* | [**deleteWorkspaceWorkflow**](docs/Api/PartnerApi.md#deleteworkspaceworkflow) | **DELETE** /workspaces/{workspaceId}/workflows/{workflowId} | Delete a Workflow
 *PartnerApi* | [**describeCompositionEntries**](docs/Api/PartnerApi.md#describecompositionentries) | **GET** /compositions/{id}/entries | Describe What a Composition Keeps
+*PartnerApi* | [**discardWorkspaceWorkflowChanges**](docs/Api/PartnerApi.md#discardworkspaceworkflowchanges) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/discard | Discard the Unpublished Changes of a Workflow
 *PartnerApi* | [**duplicateComposition**](docs/Api/PartnerApi.md#duplicatecomposition) | **POST** /compositions/{id}/duplicate | Duplicate Composition
+*PartnerApi* | [**duplicateWorkspaceWorkflow**](docs/Api/PartnerApi.md#duplicateworkspaceworkflow) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/duplicate | Duplicate a Workflow
 *PartnerApi* | [**exportCompositionEntryItems**](docs/Api/PartnerApi.md#exportcompositionentryitems) | **GET** /compositions/{id}/entries/{table}/export | Export composition entry items
 *PartnerApi* | [**getAiAnswersKnowledge**](docs/Api/PartnerApi.md#getaianswersknowledge) | **GET** /compositions/{id}/adapters/ai-answers/knowledge | See the documents a widget&#39;s AI answers from
 *PartnerApi* | [**getAllCanvases**](docs/Api/PartnerApi.md#getallcanvases) | **GET** /canvases | Get All Canvases
 *PartnerApi* | [**getAllCompositions**](docs/Api/PartnerApi.md#getallcompositions) | **GET** /compositions | Get All Compositions
 *PartnerApi* | [**getAllManagedUsers**](docs/Api/PartnerApi.md#getallmanagedusers) | **GET** /managed-users | Get Managed Users
+*PartnerApi* | [**getBrandKit**](docs/Api/PartnerApi.md#getbrandkit) | **GET** /brand-kit | The Brand Kit of the current workspace
 *PartnerApi* | [**getCanvas**](docs/Api/PartnerApi.md#getcanvas) | **GET** /canvases/{id} | Get Canvas
 *PartnerApi* | [**getCompositionById**](docs/Api/PartnerApi.md#getcompositionbyid) | **GET** /compositions/{id} | Get Composition
 *PartnerApi* | [**getCompositionContent**](docs/Api/PartnerApi.md#getcompositioncontent) | **GET** /compositions/{id}/content | Get Current Content
@@ -214,6 +236,9 @@ Class | Method | HTTP request | Description
 *PartnerApi* | [**getPersonalWorkspaceDomains**](docs/Api/PartnerApi.md#getpersonalworkspacedomains) | **GET** /users/{id}/workspace/domains | List the websites allowed to show your widgets
 *PartnerApi* | [**getPublicCompositionEmbed**](docs/Api/PartnerApi.md#getpubliccompositionembed) | **GET** /embed/compositions/{compositionId} | Resolve a composition UUID to a published widget URL
 *PartnerApi* | [**getPublicCompositionIframe**](docs/Api/PartnerApi.md#getpubliccompositioniframe) | **GET** /embed/compositions/{compositionId}/frame | Embed a published composition with its saved values
+*PartnerApi* | [**getPublicWorkflow**](docs/Api/PartnerApi.md#getpublicworkflow) | **GET** /embed/workflows/{workflowId} | Read the published Workflow of an embed
+*PartnerApi* | [**getPublicWorkflowFrame**](docs/Api/PartnerApi.md#getpublicworkflowframe) | **GET** /embed/workflows/{workflowId}/frame | Show a published Workflow in a page of its own
+*PartnerApi* | [**getPublicWorkflowVersion**](docs/Api/PartnerApi.md#getpublicworkflowversion) | **GET** /embed/workflows/{workflowId}/versions/{versionId} | Read one published version of a Workflow
 *PartnerApi* | [**getUserAdapterConnections**](docs/Api/PartnerApi.md#getuseradapterconnections) | **GET** /users/{userId}/adapter-connections | See which adapter keys an account has connected
 *PartnerApi* | [**getUserApiKeyUsageLogs**](docs/Api/PartnerApi.md#getuserapikeyusagelogs) | **GET** /users/{id}/api-keys/{keyId}/logs | Read what an API key was used for
 *PartnerApi* | [**getUserApiKeys**](docs/Api/PartnerApi.md#getuserapikeys) | **GET** /users/{id}/keys | List the API keys of an account
@@ -221,26 +246,46 @@ Class | Method | HTTP request | Description
 *PartnerApi* | [**getUserCreditTransactions**](docs/Api/PartnerApi.md#getusercredittransactions) | **GET** /credits/user/{userId}/transactions | List an account&#39;s credit ledger
 *PartnerApi* | [**getWidgets**](docs/Api/PartnerApi.md#getwidgets) | **GET** /widgets | List Widgets
 *PartnerApi* | [**getWidgetsBatch**](docs/Api/PartnerApi.md#getwidgetsbatch) | **POST** /widgets/batch | Get Widgets Batch
+*PartnerApi* | [**getWorkspaceWorkflow**](docs/Api/PartnerApi.md#getworkspaceworkflow) | **GET** /workspaces/{workspaceId}/workflows/{workflowId} | Get a Workflow
+*PartnerApi* | [**getWorkspaceWorkflowStats**](docs/Api/PartnerApi.md#getworkspaceworkflowstats) | **GET** /workspaces/{workspaceId}/workflows/{workflowId}/stats | Get what Visitors Did in a Workflow
+*PartnerApi* | [**getWorkspaceWorkflowVersion**](docs/Api/PartnerApi.md#getworkspaceworkflowversion) | **GET** /workspaces/{workspaceId}/workflows/{workflowId}/versions/{versionId} | Get a Published Version of a Workflow
 *PartnerApi* | [**listCompositionEntryItems**](docs/Api/PartnerApi.md#listcompositionentryitems) | **GET** /compositions/{id}/entries/{table}/items | List composition entry items with paging and filters
 *PartnerApi* | [**listManagedUserEntries**](docs/Api/PartnerApi.md#listmanageduserentries) | **GET** /managed-users/{id}/entries | List entries across a managed user&#39;s compositions
 *PartnerApi* | [**listPartnerNotificationDeliveries**](docs/Api/PartnerApi.md#listpartnernotificationdeliveries) | **GET** /partners/{partnerId}/notifications/deliveries | How your notifications reached you
 *PartnerApi* | [**listPartnerNotifications**](docs/Api/PartnerApi.md#listpartnernotifications) | **GET** /partners/{partnerId}/notifications | What your partner account was told
 *PartnerApi* | [**listPartnerPresets**](docs/Api/PartnerApi.md#listpartnerpresets) | **GET** /partners/{partnerId}/presets | List the widgets a partner offers as presets
+*PartnerApi* | [**listPartnerWorkflowPresets**](docs/Api/PartnerApi.md#listpartnerworkflowpresets) | **GET** /partners/{partnerId}/workflow-presets | List the workflows a partner offers as places to start
+*PartnerApi* | [**listWorkspaceWorkflowCompositionOptions**](docs/Api/PartnerApi.md#listworkspaceworkflowcompositionoptions) | **GET** /workspaces/{workspaceId}/workflows/composition-options | List the compositions a workflow can show, and what each can do
+*PartnerApi* | [**listWorkspaceWorkflowPresets**](docs/Api/PartnerApi.md#listworkspaceworkflowpresets) | **GET** /workspaces/{workspaceId}/workflows/presets | List the starting points for a new Workflow
+*PartnerApi* | [**listWorkspaceWorkflowVersions**](docs/Api/PartnerApi.md#listworkspaceworkflowversions) | **GET** /workspaces/{workspaceId}/workflows/{workflowId}/versions | List the Published Versions of a Workflow
+*PartnerApi* | [**listWorkspaceWorkflows**](docs/Api/PartnerApi.md#listworkspaceworkflows) | **GET** /workspaces/{workspaceId}/workflows | List the Workflows of a Workspace
 *PartnerApi* | [**operationsIdGet**](docs/Api/PartnerApi.md#operationsidget) | **GET** /operations/{id} | Get operation status
+*PartnerApi* | [**patchBrandKit**](docs/Api/PartnerApi.md#patchbrandkit) | **PATCH** /brand-kit | Change part of the Brand Kit
+*PartnerApi* | [**patchBrandKitAsset**](docs/Api/PartnerApi.md#patchbrandkitasset) | **PATCH** /brand-kit/assets/{assetId} | Rename an icon or relabel a font variant
 *PartnerApi* | [**patchCompositionContentItem**](docs/Api/PartnerApi.md#patchcompositioncontentitem) | **PATCH** /compositions/{id}/content/{list}/items/{itemId} | Update a content list item
+*PartnerApi* | [**pauseWorkspaceWorkflow**](docs/Api/PartnerApi.md#pauseworkspaceworkflow) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/pause | Pause a Workflow
+*PartnerApi* | [**postBrandKitFont**](docs/Api/PartnerApi.md#postbrandkitfont) | **POST** /brand-kit/fonts | Upload a font file to the Brand Kit
+*PartnerApi* | [**postBrandKitIcon**](docs/Api/PartnerApi.md#postbrandkiticon) | **POST** /brand-kit/icons | Add a named SVG icon to the Brand Kit
 *PartnerApi* | [**postPublicCompositionEmbedStatus**](docs/Api/PartnerApi.md#postpubliccompositionembedstatus) | **POST** /embed/compositions/status | Batch-check whether compositions are currently served for embed
+*PartnerApi* | [**publishWorkspaceWorkflow**](docs/Api/PartnerApi.md#publishworkspaceworkflow) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/publish | Publish the Draft of a Workflow
+*PartnerApi* | [**putBrandKit**](docs/Api/PartnerApi.md#putbrandkit) | **PUT** /brand-kit | Save Brand Kit tokens
 *PartnerApi* | [**readCompositionEntries**](docs/Api/PartnerApi.md#readcompositionentries) | **GET** /compositions/{id}/entries/{table} | Read the Entries of a Composition&#39;s Table
 *PartnerApi* | [**removeAiAnswersKnowledgeDocument**](docs/Api/PartnerApi.md#removeaianswersknowledgedocument) | **DELETE** /compositions/{id}/adapters/ai-answers/knowledge/documents/{documentId} | Remove a document from a widget&#39;s knowledge base
 *PartnerApi* | [**removePartnerAdapterConnection**](docs/Api/PartnerApi.md#removepartneradapterconnection) | **DELETE** /partners/{partnerId}/adapter-connections/{adapterId}/{credentialKey} | Remove an adapter key from a partner
 *PartnerApi* | [**removePartnerDataDatabase**](docs/Api/PartnerApi.md#removepartnerdatadatabase) | **DELETE** /partners/{partnerId}/data-database | Stop keeping the data of a partner&#39;s compositions in its own database
 *PartnerApi* | [**removePartnerPreset**](docs/Api/PartnerApi.md#removepartnerpreset) | **DELETE** /partners/{partnerId}/presets/{key} | Take a widget off the partner&#39;s presets
 *PartnerApi* | [**removePartnerStorageDestination**](docs/Api/PartnerApi.md#removepartnerstoragedestination) | **DELETE** /partners/{partnerId}/storage | Stop storing a partner&#39;s uploaded files in its own bucket
+*PartnerApi* | [**removePartnerWorkflowPreset**](docs/Api/PartnerApi.md#removepartnerworkflowpreset) | **DELETE** /partners/{partnerId}/workflow-presets/{key} | Stop offering a workflow as a place to start
 *PartnerApi* | [**removeUserAdapterConnection**](docs/Api/PartnerApi.md#removeuseradapterconnection) | **DELETE** /users/{userId}/adapter-connections/{adapterId}/{credentialKey} | Remove an adapter key from an account
 *PartnerApi* | [**replayPartnerNotificationDelivery**](docs/Api/PartnerApi.md#replaypartnernotificationdelivery) | **POST** /partners/{partnerId}/notifications/deliveries/{deliveryId}/replay | Send a webhook delivery again
+*PartnerApi* | [**reportPublicWorkflowEvents**](docs/Api/PartnerApi.md#reportpublicworkflowevents) | **POST** /embed/workflows/{workflowId}/events | Report what visitors did in a Workflow, as counts
+*PartnerApi* | [**restoreWorkspaceWorkflowVersion**](docs/Api/PartnerApi.md#restoreworkspaceworkflowversion) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/versions/{versionId}/restore | Restore a Version of a Workflow into the Draft
+*PartnerApi* | [**resumeWorkspaceWorkflow**](docs/Api/PartnerApi.md#resumeworkspaceworkflow) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/resume | Resume a Paused Workflow
 *PartnerApi* | [**revokeManagedUserEditorSession**](docs/Api/PartnerApi.md#revokemanagedusereditorsession) | **DELETE** /managed-users/{id}/editor-sessions/{sessionId} | End one editor session of a managed user
 *PartnerApi* | [**revokeManagedUserEditorSessions**](docs/Api/PartnerApi.md#revokemanagedusereditorsessions) | **DELETE** /managed-users/{id}/editor-sessions | End every editor session of a managed user
 *PartnerApi* | [**rotatePartnerEntryContextSecret**](docs/Api/PartnerApi.md#rotatepartnerentrycontextsecret) | **POST** /partners/{partnerId}/entry-context-signing/secret | Make a secret to sign the context of your embeds
 *PartnerApi* | [**rotatePartnerWebhookSecret**](docs/Api/PartnerApi.md#rotatepartnerwebhooksecret) | **POST** /partners/{partnerId}/notifications/webhook-secret | Make a new secret for your webhook
+*PartnerApi* | [**saveWorkspaceWorkflow**](docs/Api/PartnerApi.md#saveworkspaceworkflow) | **PUT** /workspaces/{workspaceId}/workflows/{workflowId} | Save the Draft of a Workflow
 *PartnerApi* | [**sendPartnerNotificationTestEvent**](docs/Api/PartnerApi.md#sendpartnernotificationtestevent) | **POST** /partners/{partnerId}/notifications/test-event | Send a test event to your webhook
 *PartnerApi* | [**setCompositionDataSource**](docs/Api/PartnerApi.md#setcompositiondatasource) | **PUT** /compositions/{id}/data-source | Bind a public JSON data source for embed refresh
 *PartnerApi* | [**setDynamicContent**](docs/Api/PartnerApi.md#setdynamiccontent) | **PUT** /compositions/{id}/content | Set Dynamic Content
@@ -251,7 +296,9 @@ Class | Method | HTTP request | Description
 *PartnerApi* | [**setPartnerDesignDefaults**](docs/Api/PartnerApi.md#setpartnerdesigndefaults) | **PUT** /partners/{partnerId}/design-defaults | Set or clear partner-wide design defaults
 *PartnerApi* | [**setPartnerPreset**](docs/Api/PartnerApi.md#setpartnerpreset) | **PUT** /partners/{partnerId}/presets/{key} | Make a widget a preset, or replace a preset
 *PartnerApi* | [**setPartnerStorageDestination**](docs/Api/PartnerApi.md#setpartnerstoragedestination) | **PUT** /partners/{partnerId}/storage | Set where a partner&#39;s uploaded files are stored
+*PartnerApi* | [**setPartnerWorkflowPreset**](docs/Api/PartnerApi.md#setpartnerworkflowpreset) | **PUT** /partners/{partnerId}/workflow-presets/{key} | Offer a workflow as a place to start, or replace what a key offers
 *PartnerApi* | [**setUserAdapterConnection**](docs/Api/PartnerApi.md#setuseradapterconnection) | **PUT** /users/{userId}/adapter-connections/{adapterId}/{credentialKey} | Connect an adapter key to an account
+*PartnerApi* | [**unarchiveWorkspaceWorkflow**](docs/Api/PartnerApi.md#unarchiveworkspaceworkflow) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/unarchive | Unarchive a Workflow
 *PartnerApi* | [**updateCanvas**](docs/Api/PartnerApi.md#updatecanvas) | **PUT** /canvases/{id} | Update Canvas
 *PartnerApi* | [**updateComposition**](docs/Api/PartnerApi.md#updatecomposition) | **PUT** /compositions/{id} | Update Composition
 *PartnerApi* | [**updateCompositionDatabaseRecord**](docs/Api/PartnerApi.md#updatecompositiondatabaserecord) | **PUT** /compositions/{id}/database/{table}/{recordId} | Update Record In Composition Database
@@ -271,6 +318,7 @@ Class | Method | HTTP request | Description
 *PartnerApi* | [**validateToken**](docs/Api/PartnerApi.md#validatetoken) | **GET** /tokens/validate | Validate current authentication token
 *PartnerApi* | [**verifyPartnerDataDatabase**](docs/Api/PartnerApi.md#verifypartnerdatadatabase) | **POST** /partners/{partnerId}/data-database/verify | Check that a partner&#39;s own database still works
 *PartnerApi* | [**verifyPartnerStorageDestination**](docs/Api/PartnerApi.md#verifypartnerstoragedestination) | **POST** /partners/{partnerId}/storage/verify | Check that a partner&#39;s storage destination still works
+*PartnersApi* | [**confirmPartnerAdapterConnection_0**](docs/Api/PartnersApi.md#confirmpartneradapterconnection_0) | **POST** /partners/{partnerId}/adapter-connections/{adapterId}/{credentialKey}/confirm | Confirm a partner&#39;s adapter address with the code that was emailed to it
 *PartnersApi* | [**createPartnerExtraCreditsInvoice_0**](docs/Api/PartnersApi.md#createpartnerextracreditsinvoice_0) | **POST** /partners/{partnerId}/credits/extra-invoice | Buy extra credits for a partner
 *PartnersApi* | [**getMyPartners_0**](docs/Api/PartnersApi.md#getmypartners_0) | **GET** /partners/mine | Find the partner you administer
 *PartnersApi* | [**getPartnerAdapterConnections_0**](docs/Api/PartnersApi.md#getpartneradapterconnections_0) | **GET** /partners/{partnerId}/adapter-connections | See which adapter keys a partner has connected
@@ -291,10 +339,12 @@ Class | Method | HTTP request | Description
 *PartnersApi* | [**listPartnerNotificationDeliveries_0**](docs/Api/PartnersApi.md#listpartnernotificationdeliveries_0) | **GET** /partners/{partnerId}/notifications/deliveries | How your notifications reached you
 *PartnersApi* | [**listPartnerNotifications_0**](docs/Api/PartnersApi.md#listpartnernotifications_0) | **GET** /partners/{partnerId}/notifications | What your partner account was told
 *PartnersApi* | [**listPartnerPresets_0**](docs/Api/PartnersApi.md#listpartnerpresets_0) | **GET** /partners/{partnerId}/presets | List the widgets a partner offers as presets
+*PartnersApi* | [**listPartnerWorkflowPresets_0**](docs/Api/PartnersApi.md#listpartnerworkflowpresets_0) | **GET** /partners/{partnerId}/workflow-presets | List the workflows a partner offers as places to start
 *PartnersApi* | [**removePartnerAdapterConnection_0**](docs/Api/PartnersApi.md#removepartneradapterconnection_0) | **DELETE** /partners/{partnerId}/adapter-connections/{adapterId}/{credentialKey} | Remove an adapter key from a partner
 *PartnersApi* | [**removePartnerDataDatabase_0**](docs/Api/PartnersApi.md#removepartnerdatadatabase_0) | **DELETE** /partners/{partnerId}/data-database | Stop keeping the data of a partner&#39;s compositions in its own database
 *PartnersApi* | [**removePartnerPreset_0**](docs/Api/PartnersApi.md#removepartnerpreset_0) | **DELETE** /partners/{partnerId}/presets/{key} | Take a widget off the partner&#39;s presets
 *PartnersApi* | [**removePartnerStorageDestination_0**](docs/Api/PartnersApi.md#removepartnerstoragedestination_0) | **DELETE** /partners/{partnerId}/storage | Stop storing a partner&#39;s uploaded files in its own bucket
+*PartnersApi* | [**removePartnerWorkflowPreset_0**](docs/Api/PartnersApi.md#removepartnerworkflowpreset_0) | **DELETE** /partners/{partnerId}/workflow-presets/{key} | Stop offering a workflow as a place to start
 *PartnersApi* | [**replayPartnerNotificationDelivery_0**](docs/Api/PartnersApi.md#replaypartnernotificationdelivery_0) | **POST** /partners/{partnerId}/notifications/deliveries/{deliveryId}/replay | Send a webhook delivery again
 *PartnersApi* | [**rotatePartnerEntryContextSecret_0**](docs/Api/PartnersApi.md#rotatepartnerentrycontextsecret_0) | **POST** /partners/{partnerId}/entry-context-signing/secret | Make a secret to sign the context of your embeds
 *PartnersApi* | [**rotatePartnerWebhookSecret_0**](docs/Api/PartnersApi.md#rotatepartnerwebhooksecret_0) | **POST** /partners/{partnerId}/notifications/webhook-secret | Make a new secret for your webhook
@@ -304,6 +354,7 @@ Class | Method | HTTP request | Description
 *PartnersApi* | [**setPartnerDesignDefaults_0**](docs/Api/PartnersApi.md#setpartnerdesigndefaults_0) | **PUT** /partners/{partnerId}/design-defaults | Set or clear partner-wide design defaults
 *PartnersApi* | [**setPartnerPreset_0**](docs/Api/PartnersApi.md#setpartnerpreset_0) | **PUT** /partners/{partnerId}/presets/{key} | Make a widget a preset, or replace a preset
 *PartnersApi* | [**setPartnerStorageDestination_0**](docs/Api/PartnersApi.md#setpartnerstoragedestination_0) | **PUT** /partners/{partnerId}/storage | Set where a partner&#39;s uploaded files are stored
+*PartnersApi* | [**setPartnerWorkflowPreset_0**](docs/Api/PartnersApi.md#setpartnerworkflowpreset_0) | **PUT** /partners/{partnerId}/workflow-presets/{key} | Offer a workflow as a place to start, or replace what a key offers
 *PartnersApi* | [**updatePartnerEntryContextSigning_0**](docs/Api/PartnersApi.md#updatepartnerentrycontextsigning_0) | **PUT** /partners/{partnerId}/entry-context-signing | Require a signed context, or stop requiring it
 *PartnersApi* | [**updatePartnerNotificationSettings_0**](docs/Api/PartnersApi.md#updatepartnernotificationsettings_0) | **PUT** /partners/{partnerId}/notifications/settings | Choose where your notifications go
 *PartnersApi* | [**verifyPartnerDataDatabase_0**](docs/Api/PartnersApi.md#verifypartnerdatadatabase_0) | **POST** /partners/{partnerId}/data-database/verify | Check that a partner&#39;s own database still works
@@ -312,7 +363,11 @@ Class | Method | HTTP request | Description
 *PublicEmbedApi* | [**createPublicCompositionEntry_0**](docs/Api/PublicEmbedApi.md#createpubliccompositionentry_0) | **POST** /embed/compositions/{compositionId}/entries/{table} | Append a visitor entry through the gateway
 *PublicEmbedApi* | [**getPublicCompositionEmbed_0**](docs/Api/PublicEmbedApi.md#getpubliccompositionembed_0) | **GET** /embed/compositions/{compositionId} | Resolve a composition UUID to a published widget URL
 *PublicEmbedApi* | [**getPublicCompositionIframe_0**](docs/Api/PublicEmbedApi.md#getpubliccompositioniframe_0) | **GET** /embed/compositions/{compositionId}/frame | Embed a published composition with its saved values
+*PublicEmbedApi* | [**getPublicWorkflowFrame_0**](docs/Api/PublicEmbedApi.md#getpublicworkflowframe_0) | **GET** /embed/workflows/{workflowId}/frame | Show a published Workflow in a page of its own
+*PublicEmbedApi* | [**getPublicWorkflowVersion_0**](docs/Api/PublicEmbedApi.md#getpublicworkflowversion_0) | **GET** /embed/workflows/{workflowId}/versions/{versionId} | Read one published version of a Workflow
+*PublicEmbedApi* | [**getPublicWorkflow_0**](docs/Api/PublicEmbedApi.md#getpublicworkflow_0) | **GET** /embed/workflows/{workflowId} | Read the published Workflow of an embed
 *PublicEmbedApi* | [**postPublicCompositionEmbedStatus_0**](docs/Api/PublicEmbedApi.md#postpubliccompositionembedstatus_0) | **POST** /embed/compositions/status | Batch-check whether compositions are currently served for embed
+*PublicEmbedApi* | [**reportPublicWorkflowEvents_0**](docs/Api/PublicEmbedApi.md#reportpublicworkflowevents_0) | **POST** /embed/workflows/{workflowId}/events | Report what visitors did in a Workflow, as counts
 *PublicEmbedApi* | [**uploadPublicCompositionAdapterFile_0**](docs/Api/PublicEmbedApi.md#uploadpubliccompositionadapterfile_0) | **PUT** /embed/compositions/{compositionId}/adapters/upload/files/{ticket} | Send the file a visitor chose through the upload adapter of a published widget
 *TokensApi* | [**validateToken_0**](docs/Api/TokensApi.md#validatetoken_0) | **GET** /tokens/validate | Validate current authentication token
 *UploadsApi* | [**uploadsGet_0**](docs/Api/UploadsApi.md#uploadsget_0) | **GET** /uploads | List the account&#39;s uploads
@@ -321,6 +376,7 @@ Class | Method | HTTP request | Description
 *UploadsApi* | [**uploadsLimitsGet_0**](docs/Api/UploadsApi.md#uploadslimitsget_0) | **GET** /uploads/limits | Upload size limits and accepted file types
 *UploadsApi* | [**uploadsPost_0**](docs/Api/UploadsApi.md#uploadspost_0) | **POST** /uploads | Upload a file
 *UsersApi* | [**addPersonalWorkspaceDomain_0**](docs/Api/UsersApi.md#addpersonalworkspacedomain_0) | **POST** /users/{id}/workspace/domains | Allow a website to show your widgets
+*UsersApi* | [**confirmUserAdapterConnection_0**](docs/Api/UsersApi.md#confirmuseradapterconnection_0) | **POST** /users/{userId}/adapter-connections/{adapterId}/{credentialKey}/confirm | Confirm an adapter address with the code that was emailed to it
 *UsersApi* | [**createUserApiKey_0**](docs/Api/UsersApi.md#createuserapikey_0) | **POST** /users/{id}/keys | Create an API key
 *UsersApi* | [**deletePersonalWorkspaceDomain_0**](docs/Api/UsersApi.md#deletepersonalworkspacedomain_0) | **DELETE** /users/{id}/workspace/domains/{domainId} | Stop allowing a website to show your widgets
 *UsersApi* | [**deleteUserApiKey_0**](docs/Api/UsersApi.md#deleteuserapikey_0) | **DELETE** /users/{id}/keys/{keyId} | Delete an API key
@@ -336,6 +392,47 @@ Class | Method | HTTP request | Description
 *WidgetsApi* | [**createWidget_0**](docs/Api/WidgetsApi.md#createwidget_0) | **POST** /widgets | Create Widget
 *WidgetsApi* | [**getWidgetsBatch_0**](docs/Api/WidgetsApi.md#getwidgetsbatch_0) | **POST** /widgets/batch | Get Widgets Batch
 *WidgetsApi* | [**getWidgets_0**](docs/Api/WidgetsApi.md#getwidgets_0) | **GET** /widgets | List Widgets
+*WorkflowsApi* | [**archiveWorkspaceWorkflow_0**](docs/Api/WorkflowsApi.md#archiveworkspaceworkflow_0) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/archive | Archive a Workflow
+*WorkflowsApi* | [**createWorkspaceWorkflowFromPreset_0**](docs/Api/WorkflowsApi.md#createworkspaceworkflowfrompreset_0) | **POST** /workspaces/{workspaceId}/workflows/from-preset | Start a Workflow from a starting point
+*WorkflowsApi* | [**createWorkspaceWorkflow_0**](docs/Api/WorkflowsApi.md#createworkspaceworkflow_0) | **POST** /workspaces/{workspaceId}/workflows | Create a Workflow
+*WorkflowsApi* | [**deleteWorkspaceWorkflow_0**](docs/Api/WorkflowsApi.md#deleteworkspaceworkflow_0) | **DELETE** /workspaces/{workspaceId}/workflows/{workflowId} | Delete a Workflow
+*WorkflowsApi* | [**discardWorkspaceWorkflowChanges_0**](docs/Api/WorkflowsApi.md#discardworkspaceworkflowchanges_0) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/discard | Discard the Unpublished Changes of a Workflow
+*WorkflowsApi* | [**duplicateWorkspaceWorkflow_0**](docs/Api/WorkflowsApi.md#duplicateworkspaceworkflow_0) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/duplicate | Duplicate a Workflow
+*WorkflowsApi* | [**getWorkspaceWorkflowStats_0**](docs/Api/WorkflowsApi.md#getworkspaceworkflowstats_0) | **GET** /workspaces/{workspaceId}/workflows/{workflowId}/stats | Get what Visitors Did in a Workflow
+*WorkflowsApi* | [**getWorkspaceWorkflowVersion_0**](docs/Api/WorkflowsApi.md#getworkspaceworkflowversion_0) | **GET** /workspaces/{workspaceId}/workflows/{workflowId}/versions/{versionId} | Get a Published Version of a Workflow
+*WorkflowsApi* | [**getWorkspaceWorkflow_0**](docs/Api/WorkflowsApi.md#getworkspaceworkflow_0) | **GET** /workspaces/{workspaceId}/workflows/{workflowId} | Get a Workflow
+*WorkflowsApi* | [**listPartnerWorkflowPresets_1**](docs/Api/WorkflowsApi.md#listpartnerworkflowpresets_1) | **GET** /partners/{partnerId}/workflow-presets | List the workflows a partner offers as places to start
+*WorkflowsApi* | [**listWorkspaceWorkflowCompositionOptions_0**](docs/Api/WorkflowsApi.md#listworkspaceworkflowcompositionoptions_0) | **GET** /workspaces/{workspaceId}/workflows/composition-options | List the compositions a workflow can show, and what each can do
+*WorkflowsApi* | [**listWorkspaceWorkflowPresets_0**](docs/Api/WorkflowsApi.md#listworkspaceworkflowpresets_0) | **GET** /workspaces/{workspaceId}/workflows/presets | List the starting points for a new Workflow
+*WorkflowsApi* | [**listWorkspaceWorkflowVersions_0**](docs/Api/WorkflowsApi.md#listworkspaceworkflowversions_0) | **GET** /workspaces/{workspaceId}/workflows/{workflowId}/versions | List the Published Versions of a Workflow
+*WorkflowsApi* | [**listWorkspaceWorkflows_0**](docs/Api/WorkflowsApi.md#listworkspaceworkflows_0) | **GET** /workspaces/{workspaceId}/workflows | List the Workflows of a Workspace
+*WorkflowsApi* | [**pauseWorkspaceWorkflow_0**](docs/Api/WorkflowsApi.md#pauseworkspaceworkflow_0) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/pause | Pause a Workflow
+*WorkflowsApi* | [**publishWorkspaceWorkflow_0**](docs/Api/WorkflowsApi.md#publishworkspaceworkflow_0) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/publish | Publish the Draft of a Workflow
+*WorkflowsApi* | [**removePartnerWorkflowPreset_1**](docs/Api/WorkflowsApi.md#removepartnerworkflowpreset_1) | **DELETE** /partners/{partnerId}/workflow-presets/{key} | Stop offering a workflow as a place to start
+*WorkflowsApi* | [**restoreWorkspaceWorkflowVersion_0**](docs/Api/WorkflowsApi.md#restoreworkspaceworkflowversion_0) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/versions/{versionId}/restore | Restore a Version of a Workflow into the Draft
+*WorkflowsApi* | [**resumeWorkspaceWorkflow_0**](docs/Api/WorkflowsApi.md#resumeworkspaceworkflow_0) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/resume | Resume a Paused Workflow
+*WorkflowsApi* | [**saveWorkspaceWorkflow_0**](docs/Api/WorkflowsApi.md#saveworkspaceworkflow_0) | **PUT** /workspaces/{workspaceId}/workflows/{workflowId} | Save the Draft of a Workflow
+*WorkflowsApi* | [**setPartnerWorkflowPreset_1**](docs/Api/WorkflowsApi.md#setpartnerworkflowpreset_1) | **PUT** /partners/{partnerId}/workflow-presets/{key} | Offer a workflow as a place to start, or replace what a key offers
+*WorkflowsApi* | [**unarchiveWorkspaceWorkflow_0**](docs/Api/WorkflowsApi.md#unarchiveworkspaceworkflow_0) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/unarchive | Unarchive a Workflow
+*WorkspacesApi* | [**archiveWorkspaceWorkflow_1**](docs/Api/WorkspacesApi.md#archiveworkspaceworkflow_1) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/archive | Archive a Workflow
+*WorkspacesApi* | [**createWorkspaceWorkflowFromPreset_1**](docs/Api/WorkspacesApi.md#createworkspaceworkflowfrompreset_1) | **POST** /workspaces/{workspaceId}/workflows/from-preset | Start a Workflow from a starting point
+*WorkspacesApi* | [**createWorkspaceWorkflow_1**](docs/Api/WorkspacesApi.md#createworkspaceworkflow_1) | **POST** /workspaces/{workspaceId}/workflows | Create a Workflow
+*WorkspacesApi* | [**deleteWorkspaceWorkflow_1**](docs/Api/WorkspacesApi.md#deleteworkspaceworkflow_1) | **DELETE** /workspaces/{workspaceId}/workflows/{workflowId} | Delete a Workflow
+*WorkspacesApi* | [**discardWorkspaceWorkflowChanges_1**](docs/Api/WorkspacesApi.md#discardworkspaceworkflowchanges_1) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/discard | Discard the Unpublished Changes of a Workflow
+*WorkspacesApi* | [**duplicateWorkspaceWorkflow_1**](docs/Api/WorkspacesApi.md#duplicateworkspaceworkflow_1) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/duplicate | Duplicate a Workflow
+*WorkspacesApi* | [**getWorkspaceWorkflowStats_1**](docs/Api/WorkspacesApi.md#getworkspaceworkflowstats_1) | **GET** /workspaces/{workspaceId}/workflows/{workflowId}/stats | Get what Visitors Did in a Workflow
+*WorkspacesApi* | [**getWorkspaceWorkflowVersion_1**](docs/Api/WorkspacesApi.md#getworkspaceworkflowversion_1) | **GET** /workspaces/{workspaceId}/workflows/{workflowId}/versions/{versionId} | Get a Published Version of a Workflow
+*WorkspacesApi* | [**getWorkspaceWorkflow_1**](docs/Api/WorkspacesApi.md#getworkspaceworkflow_1) | **GET** /workspaces/{workspaceId}/workflows/{workflowId} | Get a Workflow
+*WorkspacesApi* | [**listWorkspaceWorkflowCompositionOptions_1**](docs/Api/WorkspacesApi.md#listworkspaceworkflowcompositionoptions_1) | **GET** /workspaces/{workspaceId}/workflows/composition-options | List the compositions a workflow can show, and what each can do
+*WorkspacesApi* | [**listWorkspaceWorkflowPresets_1**](docs/Api/WorkspacesApi.md#listworkspaceworkflowpresets_1) | **GET** /workspaces/{workspaceId}/workflows/presets | List the starting points for a new Workflow
+*WorkspacesApi* | [**listWorkspaceWorkflowVersions_1**](docs/Api/WorkspacesApi.md#listworkspaceworkflowversions_1) | **GET** /workspaces/{workspaceId}/workflows/{workflowId}/versions | List the Published Versions of a Workflow
+*WorkspacesApi* | [**listWorkspaceWorkflows_1**](docs/Api/WorkspacesApi.md#listworkspaceworkflows_1) | **GET** /workspaces/{workspaceId}/workflows | List the Workflows of a Workspace
+*WorkspacesApi* | [**pauseWorkspaceWorkflow_1**](docs/Api/WorkspacesApi.md#pauseworkspaceworkflow_1) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/pause | Pause a Workflow
+*WorkspacesApi* | [**publishWorkspaceWorkflow_1**](docs/Api/WorkspacesApi.md#publishworkspaceworkflow_1) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/publish | Publish the Draft of a Workflow
+*WorkspacesApi* | [**restoreWorkspaceWorkflowVersion_1**](docs/Api/WorkspacesApi.md#restoreworkspaceworkflowversion_1) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/versions/{versionId}/restore | Restore a Version of a Workflow into the Draft
+*WorkspacesApi* | [**resumeWorkspaceWorkflow_1**](docs/Api/WorkspacesApi.md#resumeworkspaceworkflow_1) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/resume | Resume a Paused Workflow
+*WorkspacesApi* | [**saveWorkspaceWorkflow_1**](docs/Api/WorkspacesApi.md#saveworkspaceworkflow_1) | **PUT** /workspaces/{workspaceId}/workflows/{workflowId} | Save the Draft of a Workflow
+*WorkspacesApi* | [**unarchiveWorkspaceWorkflow_1**](docs/Api/WorkspacesApi.md#unarchiveworkspaceworkflow_1) | **POST** /workspaces/{workspaceId}/workflows/{workflowId}/unarchive | Unarchive a Workflow
 
 ## Models
 
@@ -352,6 +449,16 @@ Class | Method | HTTP request | Description
 - [AiAnswersKnowledgeRemoval](docs/Model/AiAnswersKnowledgeRemoval.md)
 - [AiAnswersKnowledgeTotals](docs/Model/AiAnswersKnowledgeTotals.md)
 - [ApiKeyScope](docs/Model/ApiKeyScope.md)
+- [BrandColor](docs/Model/BrandColor.md)
+- [BrandFont](docs/Model/BrandFont.md)
+- [BrandKitAssetView](docs/Model/BrandKitAssetView.md)
+- [BrandKitFigmaSource](docs/Model/BrandKitFigmaSource.md)
+- [BrandKitTokens](docs/Model/BrandKitTokens.md)
+- [BrandKitTokensFonts](docs/Model/BrandKitTokensFonts.md)
+- [BrandKitView](docs/Model/BrandKitView.md)
+- [BrandKitViewOwner](docs/Model/BrandKitViewOwner.md)
+- [BrandKitViewResponse](docs/Model/BrandKitViewResponse.md)
+- [BrandSpacing](docs/Model/BrandSpacing.md)
 - [Canvas](docs/Model/Canvas.md)
 - [CanvasResponse](docs/Model/CanvasResponse.md)
 - [CheckCompositionAccessResponse](docs/Model/CheckCompositionAccessResponse.md)
@@ -373,8 +480,10 @@ Class | Method | HTTP request | Description
 - [CompositionEntryItemsPageSuccess](docs/Model/CompositionEntryItemsPageSuccess.md)
 - [CompositionEntryTable](docs/Model/CompositionEntryTable.md)
 - [CompositionEntryTally](docs/Model/CompositionEntryTally.md)
+- [CompositionLastEditedBy](docs/Model/CompositionLastEditedBy.md)
 - [CompositionResponse](docs/Model/CompositionResponse.md)
 - [CompositionVersion](docs/Model/CompositionVersion.md)
+- [ConfirmAdapterConnectionRequest](docs/Model/ConfirmAdapterConnectionRequest.md)
 - [ContentCheckFinding](docs/Model/ContentCheckFinding.md)
 - [ContentItemWriteResult](docs/Model/ContentItemWriteResult.md)
 - [ContentItemWriteResultValidationResult](docs/Model/ContentItemWriteResultValidationResult.md)
@@ -389,6 +498,9 @@ Class | Method | HTTP request | Description
 - [CreateUserApiKeyRequest](docs/Model/CreateUserApiKeyRequest.md)
 - [CreateWidget201Response](docs/Model/CreateWidget201Response.md)
 - [CreateWidget201ResponseData](docs/Model/CreateWidget201ResponseData.md)
+- [CreateWorkspaceWorkflowFromPreset201Response](docs/Model/CreateWorkspaceWorkflowFromPreset201Response.md)
+- [CreateWorkspaceWorkflowFromPresetRequest](docs/Model/CreateWorkspaceWorkflowFromPresetRequest.md)
+- [CreateWorkspaceWorkflowRequest](docs/Model/CreateWorkspaceWorkflowRequest.md)
 - [CreatedUserApiKey](docs/Model/CreatedUserApiKey.md)
 - [CreatedUserApiKeyResponse](docs/Model/CreatedUserApiKeyResponse.md)
 - [DeleteCompositionContentItemResponse](docs/Model/DeleteCompositionContentItemResponse.md)
@@ -400,6 +512,7 @@ Class | Method | HTTP request | Description
 - [DeletePersonalWorkspaceDomainResponseData](docs/Model/DeletePersonalWorkspaceDomainResponseData.md)
 - [DeleteUserApiKeyResponse](docs/Model/DeleteUserApiKeyResponse.md)
 - [DeleteUserApiKeyResponseData](docs/Model/DeleteUserApiKeyResponseData.md)
+- [DeleteWorkspaceWorkflow200Response](docs/Model/DeleteWorkspaceWorkflow200Response.md)
 - [DesignDefaults](docs/Model/DesignDefaults.md)
 - [DuplicateComposition202Response](docs/Model/DuplicateComposition202Response.md)
 - [DuplicateComposition202ResponseData](docs/Model/DuplicateComposition202ResponseData.md)
@@ -449,8 +562,13 @@ Class | Method | HTTP request | Description
 - [GetPartnerEntitlementsResponseData](docs/Model/GetPartnerEntitlementsResponseData.md)
 - [GetPersonalWorkspaceDomains200Response](docs/Model/GetPersonalWorkspaceDomains200Response.md)
 - [GetPublicCompositionEmbed200Response](docs/Model/GetPublicCompositionEmbed200Response.md)
+- [GetPublicCompositionEmbed200ResponseAdapters](docs/Model/GetPublicCompositionEmbed200ResponseAdapters.md)
+- [GetPublicCompositionEmbed200ResponseAdaptersCaptcha](docs/Model/GetPublicCompositionEmbed200ResponseAdaptersCaptcha.md)
 - [GetPublicCompositionEmbed200ResponseDataSource](docs/Model/GetPublicCompositionEmbed200ResponseDataSource.md)
 - [GetPublicCompositionEmbed200ResponseDirect](docs/Model/GetPublicCompositionEmbed200ResponseDirect.md)
+- [GetPublicCompositionEmbed200ResponseEntries](docs/Model/GetPublicCompositionEmbed200ResponseEntries.md)
+- [GetPublicCompositionEmbed200ResponseMedia](docs/Model/GetPublicCompositionEmbed200ResponseMedia.md)
+- [GetPublicWorkflow200Response](docs/Model/GetPublicWorkflow200Response.md)
 - [GetUserAdapterConnections200Response](docs/Model/GetUserAdapterConnections200Response.md)
 - [GetUserApiKeyUsageLogsResponse](docs/Model/GetUserApiKeyUsageLogsResponse.md)
 - [GetUserApiKeyUsageLogsResponseData](docs/Model/GetUserApiKeyUsageLogsResponseData.md)
@@ -460,7 +578,14 @@ Class | Method | HTTP request | Description
 - [GetWidgetsBatchResponse](docs/Model/GetWidgetsBatchResponse.md)
 - [GetWidgetsBatchResponseData](docs/Model/GetWidgetsBatchResponseData.md)
 - [GetWidgetsBatchResponseDataErrorsInner](docs/Model/GetWidgetsBatchResponseDataErrorsInner.md)
+- [GetWorkspaceWorkflowStats200Response](docs/Model/GetWorkspaceWorkflowStats200Response.md)
+- [GetWorkspaceWorkflowVersion200Response](docs/Model/GetWorkspaceWorkflowVersion200Response.md)
 - [ListPartnerPresets200Response](docs/Model/ListPartnerPresets200Response.md)
+- [ListPartnerWorkflowPresets200Response](docs/Model/ListPartnerWorkflowPresets200Response.md)
+- [ListWorkspaceWorkflowCompositionOptions200Response](docs/Model/ListWorkspaceWorkflowCompositionOptions200Response.md)
+- [ListWorkspaceWorkflowPresets200Response](docs/Model/ListWorkspaceWorkflowPresets200Response.md)
+- [ListWorkspaceWorkflowVersions200Response](docs/Model/ListWorkspaceWorkflowVersions200Response.md)
+- [ListWorkspaceWorkflows200Response](docs/Model/ListWorkspaceWorkflows200Response.md)
 - [ManagedUser](docs/Model/ManagedUser.md)
 - [ManagedUserEntriesMeta](docs/Model/ManagedUserEntriesMeta.md)
 - [ManagedUserEntriesPageSuccess](docs/Model/ManagedUserEntriesPageSuccess.md)
@@ -479,6 +604,10 @@ Class | Method | HTTP request | Description
 - [NewEditorSession](docs/Model/NewEditorSession.md)
 - [NewManagedUser](docs/Model/NewManagedUser.md)
 - [NewWidget](docs/Model/NewWidget.md)
+- [OfferWorkflowPresetRequest](docs/Model/OfferWorkflowPresetRequest.md)
+- [OfferedWorkflowPreset](docs/Model/OfferedWorkflowPreset.md)
+- [OfferedWorkflowPresetList](docs/Model/OfferedWorkflowPresetList.md)
+- [OfferedWorkflowPresetWidget](docs/Model/OfferedWorkflowPresetWidget.md)
 - [OperationsIdGetResponse](docs/Model/OperationsIdGetResponse.md)
 - [OperationsIdGetResponseData](docs/Model/OperationsIdGetResponseData.md)
 - [PartnerAnalyticsByManagedUser](docs/Model/PartnerAnalyticsByManagedUser.md)
@@ -543,9 +672,14 @@ Class | Method | HTTP request | Description
 - [PartnerStorageUsageOfManagedUser](docs/Model/PartnerStorageUsageOfManagedUser.md)
 - [PartnerStorageUsageResponse](docs/Model/PartnerStorageUsageResponse.md)
 - [PartnerStorageUsageTotals](docs/Model/PartnerStorageUsageTotals.md)
+- [PatchBrandKitAssetRequest](docs/Model/PatchBrandKitAssetRequest.md)
+- [PatchBrandKitRequest](docs/Model/PatchBrandKitRequest.md)
+- [PatchBrandKitRequestFonts](docs/Model/PatchBrandKitRequestFonts.md)
+- [PatchBrandKitRequestSpacing](docs/Model/PatchBrandKitRequestSpacing.md)
 - [PersonalWorkspaceDomain](docs/Model/PersonalWorkspaceDomain.md)
 - [PersonalWorkspaceDomainResult](docs/Model/PersonalWorkspaceDomainResult.md)
 - [PersonalWorkspaceDomainResultResponse](docs/Model/PersonalWorkspaceDomainResultResponse.md)
+- [PostBrandKitIconRequest](docs/Model/PostBrandKitIconRequest.md)
 - [PostPublicCompositionEmbedStatus200Response](docs/Model/PostPublicCompositionEmbedStatus200Response.md)
 - [PostPublicCompositionEmbedStatus200ResponseData](docs/Model/PostPublicCompositionEmbedStatus200ResponseData.md)
 - [PostPublicCompositionEmbedStatusRequest](docs/Model/PostPublicCompositionEmbedStatusRequest.md)
@@ -562,13 +696,26 @@ Class | Method | HTTP request | Description
 - [PublicEmbedFailure](docs/Model/PublicEmbedFailure.md)
 - [PublicEmbedFailureDetails](docs/Model/PublicEmbedFailureDetails.md)
 - [PublicEmbedFailureError](docs/Model/PublicEmbedFailureError.md)
+- [PublicWorkflow](docs/Model/PublicWorkflow.md)
+- [PublicWorkflowEventsAccepted](docs/Model/PublicWorkflowEventsAccepted.md)
+- [PublicWorkflowEventsRequest](docs/Model/PublicWorkflowEventsRequest.md)
+- [PublicWorkflowEventsRequestEventsInner](docs/Model/PublicWorkflowEventsRequestEventsInner.md)
+- [PublicWorkflowEventsRequestHeightsInner](docs/Model/PublicWorkflowEventsRequestHeightsInner.md)
+- [PublicWorkflowTranslation](docs/Model/PublicWorkflowTranslation.md)
+- [PublishWorkspaceWorkflow200Response](docs/Model/PublishWorkspaceWorkflow200Response.md)
+- [PublishWorkspaceWorkflowRequest](docs/Model/PublishWorkspaceWorkflowRequest.md)
 - [PurposeStorageBucket](docs/Model/PurposeStorageBucket.md)
+- [PutBrandKitRequest](docs/Model/PutBrandKitRequest.md)
 - [RemoveAiAnswersKnowledgeDocument200Response](docs/Model/RemoveAiAnswersKnowledgeDocument200Response.md)
+- [RemovePartnerWorkflowPreset200Response](docs/Model/RemovePartnerWorkflowPreset200Response.md)
 - [RemoveUserAdapterConnection200Response](docs/Model/RemoveUserAdapterConnection200Response.md)
+- [ReportPublicWorkflowEvents200Response](docs/Model/ReportPublicWorkflowEvents200Response.md)
 - [RequestExtraCredits](docs/Model/RequestExtraCredits.md)
 - [ResponseMeta](docs/Model/ResponseMeta.md)
 - [RevokeManagedUserEditorSessionsResponse](docs/Model/RevokeManagedUserEditorSessionsResponse.md)
 - [RevokeManagedUserEditorSessionsResponseData](docs/Model/RevokeManagedUserEditorSessionsResponseData.md)
+- [SaveWorkspaceWorkflow200Response](docs/Model/SaveWorkspaceWorkflow200Response.md)
+- [SaveWorkspaceWorkflowRequest](docs/Model/SaveWorkspaceWorkflowRequest.md)
 - [SetAdapterConnectionRequest](docs/Model/SetAdapterConnectionRequest.md)
 - [SetCompositionDataSourceRequest](docs/Model/SetCompositionDataSourceRequest.md)
 - [SetDynamicContentRequest](docs/Model/SetDynamicContentRequest.md)
@@ -580,6 +727,7 @@ Class | Method | HTTP request | Description
 - [SetPartnerDesignDefaultsRequest](docs/Model/SetPartnerDesignDefaultsRequest.md)
 - [SetPartnerPresetRequest](docs/Model/SetPartnerPresetRequest.md)
 - [SetPartnerStorageDestinationRequest](docs/Model/SetPartnerStorageDestinationRequest.md)
+- [SetPartnerWorkflowPreset200Response](docs/Model/SetPartnerWorkflowPreset200Response.md)
 - [SetUserAdapterConnection200Response](docs/Model/SetUserAdapterConnection200Response.md)
 - [SuccessResponse](docs/Model/SuccessResponse.md)
 - [UpdateCanvasRequest](docs/Model/UpdateCanvasRequest.md)
@@ -605,6 +753,40 @@ Class | Method | HTTP request | Description
 - [ValidateToken200Response](docs/Model/ValidateToken200Response.md)
 - [ValidateToken200ResponseData](docs/Model/ValidateToken200ResponseData.md)
 - [Widget](docs/Model/Widget.md)
+- [Workflow](docs/Model/Workflow.md)
+- [WorkflowCompositionAction](docs/Model/WorkflowCompositionAction.md)
+- [WorkflowCompositionField](docs/Model/WorkflowCompositionField.md)
+- [WorkflowCompositionOption](docs/Model/WorkflowCompositionOption.md)
+- [WorkflowCompositionOptionActions](docs/Model/WorkflowCompositionOptionActions.md)
+- [WorkflowCompositionOptionInputs](docs/Model/WorkflowCompositionOptionInputs.md)
+- [WorkflowCompositionOptions](docs/Model/WorkflowCompositionOptions.md)
+- [WorkflowConditionCase](docs/Model/WorkflowConditionCase.md)
+- [WorkflowConditionTest](docs/Model/WorkflowConditionTest.md)
+- [WorkflowCounter](docs/Model/WorkflowCounter.md)
+- [WorkflowDetail](docs/Model/WorkflowDetail.md)
+- [WorkflowDetailAllOfLastEditedBy](docs/Model/WorkflowDetailAllOfLastEditedBy.md)
+- [WorkflowEdge](docs/Model/WorkflowEdge.md)
+- [WorkflowFieldReference](docs/Model/WorkflowFieldReference.md)
+- [WorkflowGraph](docs/Model/WorkflowGraph.md)
+- [WorkflowIssue](docs/Model/WorkflowIssue.md)
+- [WorkflowList](docs/Model/WorkflowList.md)
+- [WorkflowNode](docs/Model/WorkflowNode.md)
+- [WorkflowNodePosition](docs/Model/WorkflowNodePosition.md)
+- [WorkflowPresetChoice](docs/Model/WorkflowPresetChoice.md)
+- [WorkflowPresetChoices](docs/Model/WorkflowPresetChoices.md)
+- [WorkflowPresetRemoval](docs/Model/WorkflowPresetRemoval.md)
+- [WorkflowPresetWidget](docs/Model/WorkflowPresetWidget.md)
+- [WorkflowPublishResult](docs/Model/WorkflowPublishResult.md)
+- [WorkflowRemoved](docs/Model/WorkflowRemoved.md)
+- [WorkflowSchedule](docs/Model/WorkflowSchedule.md)
+- [WorkflowStats](docs/Model/WorkflowStats.md)
+- [WorkflowStatus](docs/Model/WorkflowStatus.md)
+- [WorkflowTrigger](docs/Model/WorkflowTrigger.md)
+- [WorkflowTriggerValuesInner](docs/Model/WorkflowTriggerValuesInner.md)
+- [WorkflowVersion](docs/Model/WorkflowVersion.md)
+- [WorkflowVersionDetail](docs/Model/WorkflowVersionDetail.md)
+- [WorkflowVersionList](docs/Model/WorkflowVersionList.md)
+- [WorkflowVersionPublishedBy](docs/Model/WorkflowVersionPublishedBy.md)
 
 ## Authorization
 
@@ -653,6 +835,6 @@ vendor/bin/phpunit
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: `1.0.0`
-    - Package version: `1.11.66`
+    - Package version: `1.11.111`
     - Generator version: `7.9.0`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`

@@ -4,6 +4,7 @@ All URIs are relative to https://api.widgetic.com/v1, except if the operation de
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
+| [**confirmPartnerAdapterConnection_0()**](PartnersApi.md#confirmPartnerAdapterConnection_0) | **POST** /partners/{partnerId}/adapter-connections/{adapterId}/{credentialKey}/confirm | Confirm a partner&#39;s adapter address with the code that was emailed to it |
 | [**createPartnerExtraCreditsInvoice_0()**](PartnersApi.md#createPartnerExtraCreditsInvoice_0) | **POST** /partners/{partnerId}/credits/extra-invoice | Buy extra credits for a partner |
 | [**getMyPartners_0()**](PartnersApi.md#getMyPartners_0) | **GET** /partners/mine | Find the partner you administer |
 | [**getPartnerAdapterConnections_0()**](PartnersApi.md#getPartnerAdapterConnections_0) | **GET** /partners/{partnerId}/adapter-connections | See which adapter keys a partner has connected |
@@ -24,10 +25,12 @@ All URIs are relative to https://api.widgetic.com/v1, except if the operation de
 | [**listPartnerNotificationDeliveries_0()**](PartnersApi.md#listPartnerNotificationDeliveries_0) | **GET** /partners/{partnerId}/notifications/deliveries | How your notifications reached you |
 | [**listPartnerNotifications_0()**](PartnersApi.md#listPartnerNotifications_0) | **GET** /partners/{partnerId}/notifications | What your partner account was told |
 | [**listPartnerPresets_0()**](PartnersApi.md#listPartnerPresets_0) | **GET** /partners/{partnerId}/presets | List the widgets a partner offers as presets |
+| [**listPartnerWorkflowPresets_0()**](PartnersApi.md#listPartnerWorkflowPresets_0) | **GET** /partners/{partnerId}/workflow-presets | List the workflows a partner offers as places to start |
 | [**removePartnerAdapterConnection_0()**](PartnersApi.md#removePartnerAdapterConnection_0) | **DELETE** /partners/{partnerId}/adapter-connections/{adapterId}/{credentialKey} | Remove an adapter key from a partner |
 | [**removePartnerDataDatabase_0()**](PartnersApi.md#removePartnerDataDatabase_0) | **DELETE** /partners/{partnerId}/data-database | Stop keeping the data of a partner&#39;s compositions in its own database |
 | [**removePartnerPreset_0()**](PartnersApi.md#removePartnerPreset_0) | **DELETE** /partners/{partnerId}/presets/{key} | Take a widget off the partner&#39;s presets |
 | [**removePartnerStorageDestination_0()**](PartnersApi.md#removePartnerStorageDestination_0) | **DELETE** /partners/{partnerId}/storage | Stop storing a partner&#39;s uploaded files in its own bucket |
+| [**removePartnerWorkflowPreset_0()**](PartnersApi.md#removePartnerWorkflowPreset_0) | **DELETE** /partners/{partnerId}/workflow-presets/{key} | Stop offering a workflow as a place to start |
 | [**replayPartnerNotificationDelivery_0()**](PartnersApi.md#replayPartnerNotificationDelivery_0) | **POST** /partners/{partnerId}/notifications/deliveries/{deliveryId}/replay | Send a webhook delivery again |
 | [**rotatePartnerEntryContextSecret_0()**](PartnersApi.md#rotatePartnerEntryContextSecret_0) | **POST** /partners/{partnerId}/entry-context-signing/secret | Make a secret to sign the context of your embeds |
 | [**rotatePartnerWebhookSecret_0()**](PartnersApi.md#rotatePartnerWebhookSecret_0) | **POST** /partners/{partnerId}/notifications/webhook-secret | Make a new secret for your webhook |
@@ -37,11 +40,78 @@ All URIs are relative to https://api.widgetic.com/v1, except if the operation de
 | [**setPartnerDesignDefaults_0()**](PartnersApi.md#setPartnerDesignDefaults_0) | **PUT** /partners/{partnerId}/design-defaults | Set or clear partner-wide design defaults |
 | [**setPartnerPreset_0()**](PartnersApi.md#setPartnerPreset_0) | **PUT** /partners/{partnerId}/presets/{key} | Make a widget a preset, or replace a preset |
 | [**setPartnerStorageDestination_0()**](PartnersApi.md#setPartnerStorageDestination_0) | **PUT** /partners/{partnerId}/storage | Set where a partner&#39;s uploaded files are stored |
+| [**setPartnerWorkflowPreset_0()**](PartnersApi.md#setPartnerWorkflowPreset_0) | **PUT** /partners/{partnerId}/workflow-presets/{key} | Offer a workflow as a place to start, or replace what a key offers |
 | [**updatePartnerEntryContextSigning_0()**](PartnersApi.md#updatePartnerEntryContextSigning_0) | **PUT** /partners/{partnerId}/entry-context-signing | Require a signed context, or stop requiring it |
 | [**updatePartnerNotificationSettings_0()**](PartnersApi.md#updatePartnerNotificationSettings_0) | **PUT** /partners/{partnerId}/notifications/settings | Choose where your notifications go |
 | [**verifyPartnerDataDatabase_0()**](PartnersApi.md#verifyPartnerDataDatabase_0) | **POST** /partners/{partnerId}/data-database/verify | Check that a partner&#39;s own database still works |
 | [**verifyPartnerStorageDestination_0()**](PartnersApi.md#verifyPartnerStorageDestination_0) | **POST** /partners/{partnerId}/storage/verify | Check that a partner&#39;s storage destination still works |
 
+
+## `confirmPartnerAdapterConnection_0()`
+
+```php
+confirmPartnerAdapterConnection_0($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request): \WidgeticApi\Model\SetUserAdapterConnection200Response
+```
+
+Confirm a partner's adapter address with the code that was emailed to it
+
+Some credentials are an email address Widgetic sends a widget's messages to (`confirmation: email_code` in `getPartnerAdapterConnections`). Saving one with `setPartnerAdapterConnection` emails a six-digit code to it; this gives the code back. Only then is the address used: until it is confirmed, the widgets of the partner's customers that need it are not charged and their visitors are told the feature is unavailable.  The code works for 30 minutes and for five wrong tries. After that, save the address again and a new code is emailed (not sooner than a minute after the last one). A code that is not made of digits is refused without counting as a try.  Confirming an address that is already confirmed answers 200 with the same state, so a retry of a request that went through is harmless. Saving a different address, or the same one before it was confirmed, starts again.  This needs an API key with full access. The caller must be the person who administers the partner, or a Widgetic administrator.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer (JWT) authorization: apiKeyAuth
+$config = WidgeticApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new WidgeticApi\Api\PartnersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$partner_id = 'partner_id_example'; // string | The partner that keeps the address
+$adapter_id = 'adapter_id_example'; // string | The adapter the address is for
+$credential_key = 'credential_key_example'; // string | The credential's name within the adapter
+$confirm_adapter_connection_request = new \WidgeticApi\Model\ConfirmAdapterConnectionRequest(); // \WidgeticApi\Model\ConfirmAdapterConnectionRequest
+
+try {
+    $result = $apiInstance->confirmPartnerAdapterConnection_0($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling PartnersApi->confirmPartnerAdapterConnection_0: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **partner_id** | **string**| The partner that keeps the address | |
+| **adapter_id** | **string**| The adapter the address is for | |
+| **credential_key** | **string**| The credential&#39;s name within the adapter | |
+| **confirm_adapter_connection_request** | [**\WidgeticApi\Model\ConfirmAdapterConnectionRequest**](../Model/ConfirmAdapterConnectionRequest.md)|  | |
+
+### Return type
+
+[**\WidgeticApi\Model\SetUserAdapterConnection200Response**](../Model/SetUserAdapterConnection200Response.md)
+
+### Authorization
+
+[apiKeyAuth](../../README.md#apiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
 
 ## `createPartnerExtraCreditsInvoice_0()`
 
@@ -51,7 +121,7 @@ createPartnerExtraCreditsInvoice_0($partner_id, $idempotency_key, $request_extra
 
 Buy extra credits for a partner
 
-Asks Widgetic for an invoice for extra credits, on top of the credits of the contract. Name the dollars; the invoice is for the most whole credits they buy at the **list price** of a credit (the price a contract may lower belongs to the contract), so it is never for more than you asked: 12.34 buys 123 credits and the invoice says 12.30. The smallest purchase is 10 dollars and one request buys at most 100000 (ask Widgetic for an invoice for more).  Pay the invoice with the link in the answer. When it is paid the credits are added **once, for good**, to the account of the person who administers the partner, which is the account everything the partner builds is charged to (`getPartnerCreditBalance` shows it). Extra credits **do not expire**, unlike the credits of a contract period, which end with it. Nothing is added before the invoice is paid, and an unpaid invoice for extra credits never stops the partner: only an unpaid invoice of the contract does (`payment_arrears`).  Allowed whatever the partner's standing: a partner that has run out of credits, or is stopped for an unpaid contract invoice, can still buy. No contract is needed.  An `Idempotency-Key` is required, and it is what makes a retry safe: the same key with the same body returns the invoice already issued, the same key with a different body is refused with 422, and a duplicate that arrives while the first is still running is refused with 409. Use one key per purchase you mean to make, and a new key for the next one. At most 10 requests an hour.  Who may ask: the person who administers the partner, or a Widgetic administrator. A key limited to scopes needs `billing:write`.
+Asks Widgetic for an invoice for extra credits, on top of the credits of the contract. Name the dollars; the invoice is for the most whole credits they buy at the **list price** of a credit (the price a contract may lower belongs to the contract), so it is never for more than you asked: 12.34 buys 123 credits and the invoice says 12.30. The smallest purchase is 10 dollars and one request buys at most 100000 (ask Widgetic for an invoice for more).  Pay the invoice with the link in the answer. When it is paid the credits are added **once, for good**, to the account of the person who administers the partner, which is the account everything the partner builds is charged to (`getPartnerCreditBalance` shows it). Extra credits **do not expire**, unlike the credits of a contract period, which end with it. Nothing is added before the invoice is paid, and an unpaid invoice for extra credits never stops the partner: only an unpaid invoice of the contract does (`payment_arrears`).  Available only to partners that have an active paid contract in force with Widgetic (`NO_PAID_CONTRACT` when none is in force) and no overdue contract invoice (`CONTRACT_INVOICE_OVERDUE` while a contract invoice is past its due day). A partner that has run out of credits during its period can buy more at the list price.  An `Idempotency-Key` is required, and it is what makes a retry safe: the same key with the same body returns the invoice already issued, the same key with a different body is refused with 422, and a duplicate that arrives while the first is still running is refused with 409. Use one key per purchase you mean to make, and a new key for the next one. At most 10 requests an hour.  Who may ask: the person who administers the partner, or a Widgetic administrator. A key limited to scopes needs `billing:write`.
 
 ### Example
 
@@ -1292,6 +1362,66 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `listPartnerWorkflowPresets_0()`
+
+```php
+listPartnerWorkflowPresets_0($partner_id): \WidgeticApi\Model\ListPartnerWorkflowPresets200Response
+```
+
+List the workflows a partner offers as places to start
+
+The partner's starting points, ordered by `position` and then by `key`: the published workflows it offers its managed users when they make a new workflow. Each says whether people can start from it now and, when they cannot, why. The list is the same for every managed user, and a managed user is shown only what is available.  A starting point is one of the partner account's own published workflows, built from compositions the account made for itself (not for a customer or a team) and from widgets the partner already offers as presets (`setPartnerPreset`), and it uses at most 10 widgets. A partner offers up to 50.  The caller must be the person who administers the partner (an API key of that account works), or a Widgetic administrator.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer (JWT) authorization: apiKeyAuth
+$config = WidgeticApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new WidgeticApi\Api\PartnersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$partner_id = 'partner_id_example'; // string | The partner whose starting points to list
+
+try {
+    $result = $apiInstance->listPartnerWorkflowPresets_0($partner_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling PartnersApi->listPartnerWorkflowPresets_0: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **partner_id** | **string**| The partner whose starting points to list | |
+
+### Return type
+
+[**\WidgeticApi\Model\ListPartnerWorkflowPresets200Response**](../Model/ListPartnerWorkflowPresets200Response.md)
+
+### Authorization
+
+[apiKeyAuth](../../README.md#apiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `removePartnerAdapterConnection_0()`
 
 ```php
@@ -1524,6 +1654,68 @@ try {
 ### Return type
 
 [**\WidgeticApi\Model\PartnerStorageRemovalResponse**](../Model/PartnerStorageRemovalResponse.md)
+
+### Authorization
+
+[apiKeyAuth](../../README.md#apiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `removePartnerWorkflowPreset_0()`
+
+```php
+removePartnerWorkflowPreset_0($partner_id, $key): \WidgeticApi\Model\RemovePartnerWorkflowPreset200Response
+```
+
+Stop offering a workflow as a place to start
+
+Removes the starting point under `key`. The workflow itself is not touched, and neither are the workflows people already started from it.  Removing a starting point the partner does not offer is not an error: the answer is `removed: false`.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer (JWT) authorization: apiKeyAuth
+$config = WidgeticApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new WidgeticApi\Api\PartnersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$partner_id = 'partner_id_example'; // string | The partner whose starting point to remove
+$key = 'key_example'; // string | The key of the starting point to remove
+
+try {
+    $result = $apiInstance->removePartnerWorkflowPreset_0($partner_id, $key);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling PartnersApi->removePartnerWorkflowPreset_0: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **partner_id** | **string**| The partner whose starting point to remove | |
+| **key** | **string**| The key of the starting point to remove | |
+
+### Return type
+
+[**\WidgeticApi\Model\RemovePartnerWorkflowPreset200Response**](../Model/RemovePartnerWorkflowPreset200Response.md)
 
 ### Authorization
 
@@ -1798,7 +1990,7 @@ setPartnerAdapterConnection_0($partner_id, $adapter_id, $credential_key, $set_ad
 
 Connect an adapter key to a partner
 
-Gives an adapter the key it needs to act through a service the partner has an account with, for the widgets of the customers the partner manages. Take the `adapterId` and `credentialKey` from `getPartnerAdapterConnections`. Saving a key that is already connected replaces it.  **What Widgetic does with it.** The key is stored encrypted, bound to this partner, this adapter and this credential, so that a stored value cannot be moved to another. It is never returned, never logged and never shown to a visitor of a widget or to your customers. A server of Widgetic opens it for the one call a widget makes through the adapter, uses it to call the provider on the partner's behalf, and discards it. To cut that off, remove the key here, or revoke it with the provider.  **What is checked.** That the adapter exists and takes this credential, that a partner may keep it (some are for an owner only) and that the text is one line of at most 2048 characters. Whether the provider accepts the key is not checked here: it shows the first time a widget uses it.  A widget whose adapter has no key connected is not charged and does not run that adapter: its visitors are told the feature is unavailable, and the partner is told once a day what to connect.  This needs an API key with full access. The caller must be the person who administers the partner, or a Widgetic administrator. A retry is harmless: saving the same key twice only refreshes when it was set.
+Gives an adapter the key it needs to act through a service the partner has an account with, for the widgets of the customers the partner manages. Take the `adapterId` and `credentialKey` from `getPartnerAdapterConnections`. Saving a key that is already connected replaces it.  **What Widgetic does with it.** The key is stored encrypted, bound to this partner, this adapter and this credential, so that a stored value cannot be moved to another. It is never returned, never logged and never shown to a visitor of a widget or to your customers. A server of Widgetic opens it for the one call a widget makes through the adapter, uses it to call the provider on the partner's behalf, and discards it. To cut that off, remove the key here, or revoke it with the provider.  **What is checked.** That the adapter exists and takes this credential, that a partner may keep it (some are for an owner only) and that the text is one line of at most 2048 characters. Whether the provider accepts the key is not checked here: it shows the first time a widget uses it.  **An address that has to be confirmed.** Some credentials are not a key but the email address Widgetic sends a widget's messages to (`confirmation: email_code` in `getPartnerAdapterConnections`). Saving one checks that it is one email address and emails a six-digit code to it; the answer says `awaitingConfirmation: true`, and nothing is sent to the address until the code is given back with `confirmPartnerAdapterConnection`. Saving the same address again before it is confirmed emails a new code (not sooner than a minute after the last); saving the address that is already confirmed changes nothing. If the code cannot be emailed, nothing is saved.  A widget whose adapter has no key connected, or whose address is not confirmed yet, is not charged and does not run that adapter: its visitors are told the feature is unavailable, and the partner is told once a day what to do.  This needs an API key with full access. The caller must be the person who administers the partner, or a Widgetic administrator. A retry is harmless: saving the same key twice only refreshes when it was set.
 
 ### Example
 
@@ -2092,6 +2284,70 @@ try {
 ### Return type
 
 [**\WidgeticApi\Model\PartnerStorageDestinationResponse**](../Model/PartnerStorageDestinationResponse.md)
+
+### Authorization
+
+[apiKeyAuth](../../README.md#apiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setPartnerWorkflowPreset_0()`
+
+```php
+setPartnerWorkflowPreset_0($partner_id, $key, $offer_workflow_preset_request): \WidgeticApi\Model\SetPartnerWorkflowPreset200Response
+```
+
+Offer a workflow as a place to start, or replace what a key offers
+
+Offers one of the partner account's own published workflows to its managed users under `key`. If the partner already offers something under that key it is replaced, so sending the same request twice is safe. Saving replaces the whole starting point: a `title`, `description` or `position` you leave out goes back to its default.  Keys are 1 to 64 characters: lowercase letters, digits, hyphens and underscores, the first a letter or a digit.  A workflow is offered once. What people get is the workflow's live version as it is when they start, so publishing the workflow changes what new starts get; workflows people already started are never touched. The offer is refused, and `error.details.reason` says why, when the workflow:  - is not the partner account's own (a workflow of a team or of a customer, or of somebody else), or does not exist:   404, the same for both; - is archived (409 `workflow_archived`), or was never published (409 `workflow_not_published`); - shows no composition (422 `workflow_empty`), or a block shows a composition made for a customer or a team   (422 `composition_not_own`); - chains more than 10 widgets (422 `too_many_widgets`), or a widget that the partner does not offer as a preset   (422 `widget_not_preset`; `error.details.widgets` lists them, each with its `id` and `name`, so they can be offered   first with `setPartnerPreset`); - is already offered under another key (409 `workflow_already_offered`; `error.details.key` says which), or the   partner already offers 50 (409 `too_many_presets`).  The caller must be the person who administers the partner (an API key of that account works), or a Widgetic administrator, who offers the partner's workflow on its behalf.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer (JWT) authorization: apiKeyAuth
+$config = WidgeticApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new WidgeticApi\Api\PartnersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$partner_id = 'partner_id_example'; // string | The partner whose starting point to set
+$key = 'key_example'; // string | The name your code and the picker use for the starting point
+$offer_workflow_preset_request = new \WidgeticApi\Model\OfferWorkflowPresetRequest(); // \WidgeticApi\Model\OfferWorkflowPresetRequest
+
+try {
+    $result = $apiInstance->setPartnerWorkflowPreset_0($partner_id, $key, $offer_workflow_preset_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling PartnersApi->setPartnerWorkflowPreset_0: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **partner_id** | **string**| The partner whose starting point to set | |
+| **key** | **string**| The name your code and the picker use for the starting point | |
+| **offer_workflow_preset_request** | [**\WidgeticApi\Model\OfferWorkflowPresetRequest**](../Model/OfferWorkflowPresetRequest.md)|  | |
+
+### Return type
+
+[**\WidgeticApi\Model\SetPartnerWorkflowPreset200Response**](../Model/SetPartnerWorkflowPreset200Response.md)
 
 ### Authorization
 

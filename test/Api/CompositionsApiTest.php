@@ -84,6 +84,18 @@ class CompositionsApiTest extends TestCase
     }
 
     /**
+     * Test case for addAiAnswersKnowledgeFile_0
+     *
+     * Add a text file or a picture of a document (a PDF once PDFs are read) for a widget's AI to answer from.
+     *
+     */
+    public function testAddAiAnswersKnowledgeFile0()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for checkCompositionAccess_0
      *
      * Check Composition Access.

@@ -64,7 +64,10 @@ class AdapterConnection implements ModelInterface, ArrayAccess, \JsonSerializabl
         'label' => 'string',
         'scope' => 'string',
         'connected' => 'bool',
-        'updated_at' => '\DateTime'
+        'updated_at' => '\DateTime',
+        'confirmation' => 'string',
+        'awaiting_confirmation' => 'bool',
+        'confirmed_at' => '\DateTime'
     ];
 
     /**
@@ -81,7 +84,10 @@ class AdapterConnection implements ModelInterface, ArrayAccess, \JsonSerializabl
         'label' => null,
         'scope' => null,
         'connected' => null,
-        'updated_at' => 'date-time'
+        'updated_at' => 'date-time',
+        'confirmation' => null,
+        'awaiting_confirmation' => null,
+        'confirmed_at' => 'date-time'
     ];
 
     /**
@@ -96,7 +102,10 @@ class AdapterConnection implements ModelInterface, ArrayAccess, \JsonSerializabl
         'label' => false,
         'scope' => false,
         'connected' => false,
-        'updated_at' => true
+        'updated_at' => true,
+        'confirmation' => true,
+        'awaiting_confirmation' => false,
+        'confirmed_at' => true
     ];
 
     /**
@@ -191,7 +200,10 @@ class AdapterConnection implements ModelInterface, ArrayAccess, \JsonSerializabl
         'label' => 'label',
         'scope' => 'scope',
         'connected' => 'connected',
-        'updated_at' => 'updatedAt'
+        'updated_at' => 'updatedAt',
+        'confirmation' => 'confirmation',
+        'awaiting_confirmation' => 'awaitingConfirmation',
+        'confirmed_at' => 'confirmedAt'
     ];
 
     /**
@@ -206,7 +218,10 @@ class AdapterConnection implements ModelInterface, ArrayAccess, \JsonSerializabl
         'label' => 'setLabel',
         'scope' => 'setScope',
         'connected' => 'setConnected',
-        'updated_at' => 'setUpdatedAt'
+        'updated_at' => 'setUpdatedAt',
+        'confirmation' => 'setConfirmation',
+        'awaiting_confirmation' => 'setAwaitingConfirmation',
+        'confirmed_at' => 'setConfirmedAt'
     ];
 
     /**
@@ -221,7 +236,10 @@ class AdapterConnection implements ModelInterface, ArrayAccess, \JsonSerializabl
         'label' => 'getLabel',
         'scope' => 'getScope',
         'connected' => 'getConnected',
-        'updated_at' => 'getUpdatedAt'
+        'updated_at' => 'getUpdatedAt',
+        'confirmation' => 'getConfirmation',
+        'awaiting_confirmation' => 'getAwaitingConfirmation',
+        'confirmed_at' => 'getConfirmedAt'
     ];
 
     /**
@@ -305,6 +323,9 @@ class AdapterConnection implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('scope', $data ?? [], null);
         $this->setIfExists('connected', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
+        $this->setIfExists('confirmation', $data ?? [], null);
+        $this->setIfExists('awaiting_confirmation', $data ?? [], null);
+        $this->setIfExists('confirmed_at', $data ?? [], null);
     }
 
     /**
@@ -363,6 +384,15 @@ class AdapterConnection implements ModelInterface, ArrayAccess, \JsonSerializabl
         }
         if ($this->container['updated_at'] === null) {
             $invalidProperties[] = "'updated_at' can't be null";
+        }
+        if ($this->container['confirmation'] === null) {
+            $invalidProperties[] = "'confirmation' can't be null";
+        }
+        if ($this->container['awaiting_confirmation'] === null) {
+            $invalidProperties[] = "'awaiting_confirmation' can't be null";
+        }
+        if ($this->container['confirmed_at'] === null) {
+            $invalidProperties[] = "'confirmed_at' can't be null";
         }
         return $invalidProperties;
     }
@@ -581,6 +611,101 @@ class AdapterConnection implements ModelInterface, ArrayAccess, \JsonSerializabl
             }
         }
         $this->container['updated_at'] = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets confirmation
+     *
+     * @return string
+     */
+    public function getConfirmation()
+    {
+        return $this->container['confirmation'];
+    }
+
+    /**
+     * Sets confirmation
+     *
+     * @param string $confirmation How this credential is proved before it is used. `email_code` means it is an email address: saving it emails a code to it, and it is used only after the code is given back (`confirmUserAdapterConnection`, `confirmPartnerAdapterConnection`). Null for a credential that is used as soon as it is saved
+     *
+     * @return self
+     */
+    public function setConfirmation($confirmation)
+    {
+        if (is_null($confirmation)) {
+            array_push($this->openAPINullablesSetToNull, 'confirmation');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('confirmation', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['confirmation'] = $confirmation;
+
+        return $this;
+    }
+
+    /**
+     * Gets awaiting_confirmation
+     *
+     * @return bool
+     */
+    public function getAwaitingConfirmation()
+    {
+        return $this->container['awaiting_confirmation'];
+    }
+
+    /**
+     * Sets awaiting_confirmation
+     *
+     * @param bool $awaiting_confirmation True when the credential is connected but has not been confirmed yet, so no adapter uses it. Always false when `confirmation` is null or the credential is not connected
+     *
+     * @return self
+     */
+    public function setAwaitingConfirmation($awaiting_confirmation)
+    {
+        if (is_null($awaiting_confirmation)) {
+            throw new \InvalidArgumentException('non-nullable awaiting_confirmation cannot be null');
+        }
+        $this->container['awaiting_confirmation'] = $awaiting_confirmation;
+
+        return $this;
+    }
+
+    /**
+     * Gets confirmed_at
+     *
+     * @return \DateTime
+     */
+    public function getConfirmedAt()
+    {
+        return $this->container['confirmed_at'];
+    }
+
+    /**
+     * Sets confirmed_at
+     *
+     * @param \DateTime $confirmed_at When the credential was confirmed. Null when it is not connected, is awaiting its code, or needs no confirmation
+     *
+     * @return self
+     */
+    public function setConfirmedAt($confirmed_at)
+    {
+        if (is_null($confirmed_at)) {
+            array_push($this->openAPINullablesSetToNull, 'confirmed_at');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('confirmed_at', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['confirmed_at'] = $confirmed_at;
 
         return $this;
     }

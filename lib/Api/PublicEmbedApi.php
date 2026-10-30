@@ -83,8 +83,21 @@ class PublicEmbedApi
         'getPublicCompositionIframe_0' => [
             'application/json',
         ],
+        'getPublicWorkflowFrame_0' => [
+            'application/json',
+        ],
+        'getPublicWorkflowVersion_0' => [
+            'application/json',
+        ],
+        'getPublicWorkflow_0' => [
+            'application/json',
+        ],
         'postPublicCompositionEmbedStatus_0' => [
             'application/json',
+        ],
+        'reportPublicWorkflowEvents_0' => [
+            'application/json',
+            'text/plain',
         ],
         'uploadPublicCompositionAdapterFile_0' => [
             'application/pdf',
@@ -985,6 +998,7 @@ class PublicEmbedApi
      * @param  string $table table (required)
      * @param  \WidgeticApi\Model\PublicCompositionEntryRequest $public_composition_entry_request public_composition_entry_request (required)
      * @param  string $x_widgetic_write_token Signed per-composition write token handed to the widget in &#x60;widgetic:host&#x60; as &#x60;entries.writeToken&#x60; (and returned by &#x60;GET /embed/compositions/{compositionId}&#x60; as &#x60;entryWriteToken&#x60;). Required when the request comes from the shared Widgetic artifact origin; verified whenever present. (optional)
+     * @param  string $x_widgetic_visitor_id A random id the widget&#39;s browser makes once and keeps (16 to 64 characters of &#x60;A-Za-z0-9_-&#x60;), sent so a table&#39;s per-visitor &#x60;limit&#x60; (declared in the widget database file) can count this browser. Not an identity and not a secret. Without it, or with a malformed value, the limit counts only by network address. (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createPublicCompositionEntry_0'] to see the possible values for this operation
@@ -993,9 +1007,9 @@ class PublicEmbedApi
      * @throws \InvalidArgumentException
      * @return \WidgeticApi\Model\PublicCompositionEntryCreated|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure
      */
-    public function createPublicCompositionEntry_0($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createPublicCompositionEntry_0'][0])
+    public function createPublicCompositionEntry_0($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token = null, $x_widgetic_visitor_id = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createPublicCompositionEntry_0'][0])
     {
-        list($response) = $this->createPublicCompositionEntry_0WithHttpInfo($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token, $hostIndex, $variables, $contentType);
+        list($response) = $this->createPublicCompositionEntry_0WithHttpInfo($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token, $x_widgetic_visitor_id, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -1012,6 +1026,7 @@ class PublicEmbedApi
      * @param  string $table (required)
      * @param  \WidgeticApi\Model\PublicCompositionEntryRequest $public_composition_entry_request (required)
      * @param  string $x_widgetic_write_token Signed per-composition write token handed to the widget in &#x60;widgetic:host&#x60; as &#x60;entries.writeToken&#x60; (and returned by &#x60;GET /embed/compositions/{compositionId}&#x60; as &#x60;entryWriteToken&#x60;). Required when the request comes from the shared Widgetic artifact origin; verified whenever present. (optional)
+     * @param  string $x_widgetic_visitor_id A random id the widget&#39;s browser makes once and keeps (16 to 64 characters of &#x60;A-Za-z0-9_-&#x60;), sent so a table&#39;s per-visitor &#x60;limit&#x60; (declared in the widget database file) can count this browser. Not an identity and not a secret. Without it, or with a malformed value, the limit counts only by network address. (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createPublicCompositionEntry_0'] to see the possible values for this operation
@@ -1020,9 +1035,9 @@ class PublicEmbedApi
      * @throws \InvalidArgumentException
      * @return array of \WidgeticApi\Model\PublicCompositionEntryCreated|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createPublicCompositionEntry_0WithHttpInfo($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createPublicCompositionEntry_0'][0])
+    public function createPublicCompositionEntry_0WithHttpInfo($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token = null, $x_widgetic_visitor_id = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createPublicCompositionEntry_0'][0])
     {
-        $request = $this->createPublicCompositionEntry_0Request($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token, $hostIndex, $variables, $contentType);
+        $request = $this->createPublicCompositionEntry_0Request($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token, $x_widgetic_visitor_id, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1426,6 +1441,7 @@ class PublicEmbedApi
      * @param  string $table (required)
      * @param  \WidgeticApi\Model\PublicCompositionEntryRequest $public_composition_entry_request (required)
      * @param  string $x_widgetic_write_token Signed per-composition write token handed to the widget in &#x60;widgetic:host&#x60; as &#x60;entries.writeToken&#x60; (and returned by &#x60;GET /embed/compositions/{compositionId}&#x60; as &#x60;entryWriteToken&#x60;). Required when the request comes from the shared Widgetic artifact origin; verified whenever present. (optional)
+     * @param  string $x_widgetic_visitor_id A random id the widget&#39;s browser makes once and keeps (16 to 64 characters of &#x60;A-Za-z0-9_-&#x60;), sent so a table&#39;s per-visitor &#x60;limit&#x60; (declared in the widget database file) can count this browser. Not an identity and not a secret. Without it, or with a malformed value, the limit counts only by network address. (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createPublicCompositionEntry_0'] to see the possible values for this operation
@@ -1433,9 +1449,9 @@ class PublicEmbedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createPublicCompositionEntry_0Async($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createPublicCompositionEntry_0'][0])
+    public function createPublicCompositionEntry_0Async($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token = null, $x_widgetic_visitor_id = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createPublicCompositionEntry_0'][0])
     {
-        return $this->createPublicCompositionEntry_0AsyncWithHttpInfo($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token, $hostIndex, $variables, $contentType)
+        return $this->createPublicCompositionEntry_0AsyncWithHttpInfo($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token, $x_widgetic_visitor_id, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1456,6 +1472,7 @@ class PublicEmbedApi
      * @param  string $table (required)
      * @param  \WidgeticApi\Model\PublicCompositionEntryRequest $public_composition_entry_request (required)
      * @param  string $x_widgetic_write_token Signed per-composition write token handed to the widget in &#x60;widgetic:host&#x60; as &#x60;entries.writeToken&#x60; (and returned by &#x60;GET /embed/compositions/{compositionId}&#x60; as &#x60;entryWriteToken&#x60;). Required when the request comes from the shared Widgetic artifact origin; verified whenever present. (optional)
+     * @param  string $x_widgetic_visitor_id A random id the widget&#39;s browser makes once and keeps (16 to 64 characters of &#x60;A-Za-z0-9_-&#x60;), sent so a table&#39;s per-visitor &#x60;limit&#x60; (declared in the widget database file) can count this browser. Not an identity and not a secret. Without it, or with a malformed value, the limit counts only by network address. (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createPublicCompositionEntry_0'] to see the possible values for this operation
@@ -1463,10 +1480,10 @@ class PublicEmbedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createPublicCompositionEntry_0AsyncWithHttpInfo($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createPublicCompositionEntry_0'][0])
+    public function createPublicCompositionEntry_0AsyncWithHttpInfo($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token = null, $x_widgetic_visitor_id = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createPublicCompositionEntry_0'][0])
     {
         $returnType = '\WidgeticApi\Model\PublicCompositionEntryCreated';
-        $request = $this->createPublicCompositionEntry_0Request($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token, $hostIndex, $variables, $contentType);
+        $request = $this->createPublicCompositionEntry_0Request($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token, $x_widgetic_visitor_id, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1515,6 +1532,7 @@ class PublicEmbedApi
      * @param  string $table (required)
      * @param  \WidgeticApi\Model\PublicCompositionEntryRequest $public_composition_entry_request (required)
      * @param  string $x_widgetic_write_token Signed per-composition write token handed to the widget in &#x60;widgetic:host&#x60; as &#x60;entries.writeToken&#x60; (and returned by &#x60;GET /embed/compositions/{compositionId}&#x60; as &#x60;entryWriteToken&#x60;). Required when the request comes from the shared Widgetic artifact origin; verified whenever present. (optional)
+     * @param  string $x_widgetic_visitor_id A random id the widget&#39;s browser makes once and keeps (16 to 64 characters of &#x60;A-Za-z0-9_-&#x60;), sent so a table&#39;s per-visitor &#x60;limit&#x60; (declared in the widget database file) can count this browser. Not an identity and not a secret. Without it, or with a malformed value, the limit counts only by network address. (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createPublicCompositionEntry_0'] to see the possible values for this operation
@@ -1522,7 +1540,7 @@ class PublicEmbedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createPublicCompositionEntry_0Request($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createPublicCompositionEntry_0'][0])
+    public function createPublicCompositionEntry_0Request($composition_id, $table, $public_composition_entry_request, $x_widgetic_write_token = null, $x_widgetic_visitor_id = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createPublicCompositionEntry_0'][0])
     {
 
         // verify the required parameter 'composition_id' is set
@@ -1547,6 +1565,10 @@ class PublicEmbedApi
         }
 
 
+        if ($x_widgetic_visitor_id !== null && !preg_match("/^[A-Za-z0-9_-]{16,64}$/", $x_widgetic_visitor_id)) {
+            throw new \InvalidArgumentException("invalid value for \"x_widgetic_visitor_id\" when calling PublicEmbedApi.createPublicCompositionEntry_0, must conform to the pattern /^[A-Za-z0-9_-]{16,64}$/.");
+        }
+        
 
         $resourcePath = '/embed/compositions/{compositionId}/entries/{table}';
         $formParams = [];
@@ -1559,6 +1581,10 @@ class PublicEmbedApi
         // header params
         if ($x_widgetic_write_token !== null) {
             $headerParams['X-Widgetic-Write-Token'] = ObjectSerializer::toHeaderValue($x_widgetic_write_token);
+        }
+        // header params
+        if ($x_widgetic_visitor_id !== null) {
+            $headerParams['X-Widgetic-Visitor-Id'] = ObjectSerializer::toHeaderValue($x_widgetic_visitor_id);
         }
 
         // path params
@@ -2601,6 +2627,1535 @@ class PublicEmbedApi
     }
 
     /**
+     * Operation getPublicWorkflowFrame_0
+     *
+     * Show a published Workflow in a page of its own
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id workflow_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflowFrame_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return string|\WidgeticApi\Model\ErrorResponse|string|\WidgeticApi\Model\ErrorResponse|string
+     */
+    public function getPublicWorkflowFrame_0($workflow_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflowFrame_0'][0])
+    {
+        list($response) = $this->getPublicWorkflowFrame_0WithHttpInfo($workflow_id, $hostIndex, $variables, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getPublicWorkflowFrame_0WithHttpInfo
+     *
+     * Show a published Workflow in a page of its own
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflowFrame_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of string|\WidgeticApi\Model\ErrorResponse|string|\WidgeticApi\Model\ErrorResponse|string, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getPublicWorkflowFrame_0WithHttpInfo($workflow_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflowFrame_0'][0])
+    {
+        $request = $this->getPublicWorkflowFrame_0Request($workflow_id, $hostIndex, $variables, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    if ('string' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('string' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'string', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('string' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('string' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'string', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 429:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 503:
+                    if ('string' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('string' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'string', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            $returnType = 'string';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'string',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'string',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'string',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getPublicWorkflowFrame_0Async
+     *
+     * Show a published Workflow in a page of its own
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflowFrame_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPublicWorkflowFrame_0Async($workflow_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflowFrame_0'][0])
+    {
+        return $this->getPublicWorkflowFrame_0AsyncWithHttpInfo($workflow_id, $hostIndex, $variables, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getPublicWorkflowFrame_0AsyncWithHttpInfo
+     *
+     * Show a published Workflow in a page of its own
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflowFrame_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPublicWorkflowFrame_0AsyncWithHttpInfo($workflow_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflowFrame_0'][0])
+    {
+        $returnType = 'string';
+        $request = $this->getPublicWorkflowFrame_0Request($workflow_id, $hostIndex, $variables, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getPublicWorkflowFrame_0'
+     *
+    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+    * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflowFrame_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getPublicWorkflowFrame_0Request($workflow_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflowFrame_0'][0])
+    {
+
+        // verify the required parameter 'workflow_id' is set
+        if ($workflow_id === null || (is_array($workflow_id) && count($workflow_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workflow_id when calling getPublicWorkflowFrame_0'
+            );
+        }
+
+
+        $resourcePath = '/embed/workflows/{workflowId}/frame';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workflow_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'workflowId' . '}',
+                ObjectSerializer::toPathValue($workflow_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['text/html', 'application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        # Preserve the original behavior of server indexing.
+        if ($hostIndex === null) {
+            $hostIndex = $this->hostIndex;
+        }
+
+        $hostSettings = $this->getHostSettingsForgetPublicWorkflowFrame_0();
+
+        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
+            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
+        }
+        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Returns an array of host settings for Operation getPublicWorkflowFrame_0
+     *
+     * @return array an array of host settings
+     */
+    protected function getHostSettingsForgetPublicWorkflowFrame_0(): array
+    {
+        return [
+            [
+                "url" => "https://api.widgetic.com",
+                "description" => "The public embed routes are served at the root of the API host, not under /v1.",
+            ]
+        ];
+    }
+
+    /**
+     * Operation getPublicWorkflowVersion_0
+     *
+     * Read one published version of a Workflow
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id workflow_id (required)
+     * @param  string $version_id version_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflowVersion_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \WidgeticApi\Model\GetPublicWorkflow200Response|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure
+     */
+    public function getPublicWorkflowVersion_0($workflow_id, $version_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflowVersion_0'][0])
+    {
+        list($response) = $this->getPublicWorkflowVersion_0WithHttpInfo($workflow_id, $version_id, $hostIndex, $variables, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getPublicWorkflowVersion_0WithHttpInfo
+     *
+     * Read one published version of a Workflow
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  string $version_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflowVersion_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \WidgeticApi\Model\GetPublicWorkflow200Response|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getPublicWorkflowVersion_0WithHttpInfo($workflow_id, $version_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflowVersion_0'][0])
+    {
+        $request = $this->getPublicWorkflowVersion_0Request($workflow_id, $version_id, $hostIndex, $variables, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    if ('\WidgeticApi\Model\GetPublicWorkflow200Response' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\GetPublicWorkflow200Response' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\GetPublicWorkflow200Response', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 429:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 503:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            $returnType = '\WidgeticApi\Model\GetPublicWorkflow200Response';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\GetPublicWorkflow200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getPublicWorkflowVersion_0Async
+     *
+     * Read one published version of a Workflow
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  string $version_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflowVersion_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPublicWorkflowVersion_0Async($workflow_id, $version_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflowVersion_0'][0])
+    {
+        return $this->getPublicWorkflowVersion_0AsyncWithHttpInfo($workflow_id, $version_id, $hostIndex, $variables, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getPublicWorkflowVersion_0AsyncWithHttpInfo
+     *
+     * Read one published version of a Workflow
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  string $version_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflowVersion_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPublicWorkflowVersion_0AsyncWithHttpInfo($workflow_id, $version_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflowVersion_0'][0])
+    {
+        $returnType = '\WidgeticApi\Model\GetPublicWorkflow200Response';
+        $request = $this->getPublicWorkflowVersion_0Request($workflow_id, $version_id, $hostIndex, $variables, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getPublicWorkflowVersion_0'
+     *
+    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+    * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  string $version_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflowVersion_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getPublicWorkflowVersion_0Request($workflow_id, $version_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflowVersion_0'][0])
+    {
+
+        // verify the required parameter 'workflow_id' is set
+        if ($workflow_id === null || (is_array($workflow_id) && count($workflow_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workflow_id when calling getPublicWorkflowVersion_0'
+            );
+        }
+
+        // verify the required parameter 'version_id' is set
+        if ($version_id === null || (is_array($version_id) && count($version_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $version_id when calling getPublicWorkflowVersion_0'
+            );
+        }
+
+
+        $resourcePath = '/embed/workflows/{workflowId}/versions/{versionId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workflow_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'workflowId' . '}',
+                ObjectSerializer::toPathValue($workflow_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($version_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'versionId' . '}',
+                ObjectSerializer::toPathValue($version_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        # Preserve the original behavior of server indexing.
+        if ($hostIndex === null) {
+            $hostIndex = $this->hostIndex;
+        }
+
+        $hostSettings = $this->getHostSettingsForgetPublicWorkflowVersion_0();
+
+        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
+            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
+        }
+        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Returns an array of host settings for Operation getPublicWorkflowVersion_0
+     *
+     * @return array an array of host settings
+     */
+    protected function getHostSettingsForgetPublicWorkflowVersion_0(): array
+    {
+        return [
+            [
+                "url" => "https://api.widgetic.com",
+                "description" => "The public embed routes are served at the root of the API host, not under /v1.",
+            ]
+        ];
+    }
+
+    /**
+     * Operation getPublicWorkflow_0
+     *
+     * Read the published Workflow of an embed
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id workflow_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflow_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \WidgeticApi\Model\GetPublicWorkflow200Response|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure
+     */
+    public function getPublicWorkflow_0($workflow_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflow_0'][0])
+    {
+        list($response) = $this->getPublicWorkflow_0WithHttpInfo($workflow_id, $hostIndex, $variables, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getPublicWorkflow_0WithHttpInfo
+     *
+     * Read the published Workflow of an embed
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflow_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \WidgeticApi\Model\GetPublicWorkflow200Response|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getPublicWorkflow_0WithHttpInfo($workflow_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflow_0'][0])
+    {
+        $request = $this->getPublicWorkflow_0Request($workflow_id, $hostIndex, $variables, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    if ('\WidgeticApi\Model\GetPublicWorkflow200Response' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\GetPublicWorkflow200Response' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\GetPublicWorkflow200Response', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 429:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 503:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            $returnType = '\WidgeticApi\Model\GetPublicWorkflow200Response';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\GetPublicWorkflow200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getPublicWorkflow_0Async
+     *
+     * Read the published Workflow of an embed
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflow_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPublicWorkflow_0Async($workflow_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflow_0'][0])
+    {
+        return $this->getPublicWorkflow_0AsyncWithHttpInfo($workflow_id, $hostIndex, $variables, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getPublicWorkflow_0AsyncWithHttpInfo
+     *
+     * Read the published Workflow of an embed
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflow_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPublicWorkflow_0AsyncWithHttpInfo($workflow_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflow_0'][0])
+    {
+        $returnType = '\WidgeticApi\Model\GetPublicWorkflow200Response';
+        $request = $this->getPublicWorkflow_0Request($workflow_id, $hostIndex, $variables, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getPublicWorkflow_0'
+     *
+    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+    * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPublicWorkflow_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getPublicWorkflow_0Request($workflow_id, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getPublicWorkflow_0'][0])
+    {
+
+        // verify the required parameter 'workflow_id' is set
+        if ($workflow_id === null || (is_array($workflow_id) && count($workflow_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workflow_id when calling getPublicWorkflow_0'
+            );
+        }
+
+
+        $resourcePath = '/embed/workflows/{workflowId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workflow_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'workflowId' . '}',
+                ObjectSerializer::toPathValue($workflow_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        # Preserve the original behavior of server indexing.
+        if ($hostIndex === null) {
+            $hostIndex = $this->hostIndex;
+        }
+
+        $hostSettings = $this->getHostSettingsForgetPublicWorkflow_0();
+
+        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
+            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
+        }
+        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Returns an array of host settings for Operation getPublicWorkflow_0
+     *
+     * @return array an array of host settings
+     */
+    protected function getHostSettingsForgetPublicWorkflow_0(): array
+    {
+        return [
+            [
+                "url" => "https://api.widgetic.com",
+                "description" => "The public embed routes are served at the root of the API host, not under /v1.",
+            ]
+        ];
+    }
+
+    /**
      * Operation postPublicCompositionEmbedStatus_0
      *
      * Batch-check whether compositions are currently served for embed
@@ -3023,6 +4578,668 @@ class PublicEmbedApi
      * @return array an array of host settings
      */
     protected function getHostSettingsForpostPublicCompositionEmbedStatus_0(): array
+    {
+        return [
+            [
+                "url" => "https://api.widgetic.com",
+                "description" => "The public embed routes are served at the root of the API host, not under /v1.",
+            ]
+        ];
+    }
+
+    /**
+     * Operation reportPublicWorkflowEvents_0
+     *
+     * Report what visitors did in a Workflow, as counts
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id workflow_id (required)
+     * @param  \WidgeticApi\Model\PublicWorkflowEventsRequest $public_workflow_events_request public_workflow_events_request (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['reportPublicWorkflowEvents_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \WidgeticApi\Model\ReportPublicWorkflowEvents200Response|\WidgeticApi\Model\ReportPublicWorkflowEvents200Response|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure
+     */
+    public function reportPublicWorkflowEvents_0($workflow_id, $public_workflow_events_request, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['reportPublicWorkflowEvents_0'][0])
+    {
+        list($response) = $this->reportPublicWorkflowEvents_0WithHttpInfo($workflow_id, $public_workflow_events_request, $hostIndex, $variables, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation reportPublicWorkflowEvents_0WithHttpInfo
+     *
+     * Report what visitors did in a Workflow, as counts
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  \WidgeticApi\Model\PublicWorkflowEventsRequest $public_workflow_events_request (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['reportPublicWorkflowEvents_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \WidgeticApi\Model\ReportPublicWorkflowEvents200Response|\WidgeticApi\Model\ReportPublicWorkflowEvents200Response|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure|\WidgeticApi\Model\PublicEmbedFailure, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function reportPublicWorkflowEvents_0WithHttpInfo($workflow_id, $public_workflow_events_request, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['reportPublicWorkflowEvents_0'][0])
+    {
+        $request = $this->reportPublicWorkflowEvents_0Request($workflow_id, $public_workflow_events_request, $hostIndex, $variables, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    if ('\WidgeticApi\Model\ReportPublicWorkflowEvents200Response' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ReportPublicWorkflowEvents200Response' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ReportPublicWorkflowEvents200Response', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 202:
+                    if ('\WidgeticApi\Model\ReportPublicWorkflowEvents200Response' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ReportPublicWorkflowEvents200Response' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ReportPublicWorkflowEvents200Response', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 413:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 415:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 429:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 503:
+                    if ('\WidgeticApi\Model\PublicEmbedFailure' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\PublicEmbedFailure' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\PublicEmbedFailure', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            $returnType = '\WidgeticApi\Model\ReportPublicWorkflowEvents200Response';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ReportPublicWorkflowEvents200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ReportPublicWorkflowEvents200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 415:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\PublicEmbedFailure',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation reportPublicWorkflowEvents_0Async
+     *
+     * Report what visitors did in a Workflow, as counts
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  \WidgeticApi\Model\PublicWorkflowEventsRequest $public_workflow_events_request (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['reportPublicWorkflowEvents_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function reportPublicWorkflowEvents_0Async($workflow_id, $public_workflow_events_request, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['reportPublicWorkflowEvents_0'][0])
+    {
+        return $this->reportPublicWorkflowEvents_0AsyncWithHttpInfo($workflow_id, $public_workflow_events_request, $hostIndex, $variables, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation reportPublicWorkflowEvents_0AsyncWithHttpInfo
+     *
+     * Report what visitors did in a Workflow, as counts
+     *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  \WidgeticApi\Model\PublicWorkflowEventsRequest $public_workflow_events_request (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['reportPublicWorkflowEvents_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function reportPublicWorkflowEvents_0AsyncWithHttpInfo($workflow_id, $public_workflow_events_request, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['reportPublicWorkflowEvents_0'][0])
+    {
+        $returnType = '\WidgeticApi\Model\ReportPublicWorkflowEvents200Response';
+        $request = $this->reportPublicWorkflowEvents_0Request($workflow_id, $public_workflow_events_request, $hostIndex, $variables, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'reportPublicWorkflowEvents_0'
+     *
+    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+    * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://api.widgetic.com
+     *
+     * @param  string $workflow_id (required)
+     * @param  \WidgeticApi\Model\PublicWorkflowEventsRequest $public_workflow_events_request (required)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['reportPublicWorkflowEvents_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function reportPublicWorkflowEvents_0Request($workflow_id, $public_workflow_events_request, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['reportPublicWorkflowEvents_0'][0])
+    {
+
+        // verify the required parameter 'workflow_id' is set
+        if ($workflow_id === null || (is_array($workflow_id) && count($workflow_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workflow_id when calling reportPublicWorkflowEvents_0'
+            );
+        }
+
+        // verify the required parameter 'public_workflow_events_request' is set
+        if ($public_workflow_events_request === null || (is_array($public_workflow_events_request) && count($public_workflow_events_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $public_workflow_events_request when calling reportPublicWorkflowEvents_0'
+            );
+        }
+
+
+        $resourcePath = '/embed/workflows/{workflowId}/events';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($workflow_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'workflowId' . '}',
+                ObjectSerializer::toPathValue($workflow_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($public_workflow_events_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($public_workflow_events_request));
+            } else {
+                $httpBody = $public_workflow_events_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        # Preserve the original behavior of server indexing.
+        if ($hostIndex === null) {
+            $hostIndex = $this->hostIndex;
+        }
+
+        $hostSettings = $this->getHostSettingsForreportPublicWorkflowEvents_0();
+
+        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
+            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
+        }
+        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Returns an array of host settings for Operation reportPublicWorkflowEvents_0
+     *
+     * @return array an array of host settings
+     */
+    protected function getHostSettingsForreportPublicWorkflowEvents_0(): array
     {
         return [
             [

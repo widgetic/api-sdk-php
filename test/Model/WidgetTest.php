@@ -224,18 +224,9 @@ class WidgetTest extends TestCase
     }
 
     /**
-     * Test attribute "cpg_schema_id"
+     * Test attribute "last_commit_sha"
      */
-    public function testPropertyCpgSchemaId()
-    {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "last_cpg_commit_sha"
-     */
-    public function testPropertyLastCpgCommitSha()
+    public function testPropertyLastCommitSha()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

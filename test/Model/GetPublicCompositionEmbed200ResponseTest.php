@@ -152,6 +152,24 @@ class GetPublicCompositionEmbed200ResponseTest extends TestCase
     }
 
     /**
+     * Test attribute "entries"
+     */
+    public function testPropertyEntries()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "adapters"
+     */
+    public function testPropertyAdapters()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "width"
      */
     public function testPropertyWidth()
@@ -200,6 +218,15 @@ class GetPublicCompositionEmbed200ResponseTest extends TestCase
      * Test attribute "iframe_allow"
      */
     public function testPropertyIframeAllow()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "media"
+     */
+    public function testPropertyMedia()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

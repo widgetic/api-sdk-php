@@ -249,6 +249,7 @@ class NewEditorSession implements ModelInterface, ArrayAccess, \JsonSerializable
     public const SURFACES_FILES = 'files';
     public const SURFACES_EDITOR = 'editor';
     public const SURFACES_CREATOR = 'creator';
+    public const SURFACES_WORKFLOWS = 'workflows';
 
     /**
      * Gets allowable values of the enum
@@ -261,6 +262,7 @@ class NewEditorSession implements ModelInterface, ArrayAccess, \JsonSerializable
             self::SURFACES_FILES,
             self::SURFACES_EDITOR,
             self::SURFACES_CREATOR,
+            self::SURFACES_WORKFLOWS,
         ];
     }
 
@@ -363,7 +365,7 @@ class NewEditorSession implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets surfaces
      *
-     * @param string[] $surfaces The pieces of Widgetic's editor the session may drive. `files` is the media library (the File Browser: upload a file, list the files uploaded for this user); what a user uploads is kept in your own storage destination. Partner storage is not optional: a session of any surface can be made only once you have set a destination up (`setPartnerStorageDestination`), and is refused with `409 PARTNER_STORAGE_REQUIRED` until then. `editor` is editing one of this user's compositions: read it, change its name, content, design and embed settings, read its schemas, and ask where to show it (`getCompositionPreview`: the widget's published page). `creator` is Widgetic's widget creator, with its drawing canvas and its AI: this user's canvases, the widgets on them and the conversation of each widget, the generation, build and publish calls that make a widget, and the compositions of those widgets (list, make). The surfaces do not imply one another: the whole creator also saves a composition (`editor`) and attaches pictures to its chat (`files`), so ask for `[\"creator\", \"editor\", \"files\"]`.
+     * @param string[] $surfaces The pieces of Widgetic's editor the session may drive. `files` is the media library (the File Browser: upload a file, list the files uploaded for this user); what a user uploads is kept in your own storage destination. Partner storage is not optional: a session of any surface can be made only once you have set a destination up (`setPartnerStorageDestination`), and is refused with `409 PARTNER_STORAGE_REQUIRED` until then. `editor` is editing one of this user's compositions: read it, change its name, content, design and embed settings, read its schemas, and ask where to show it (`getCompositionPreview`: the widget's published page). `creator` is Widgetic's widget creator, with its drawing canvas and its AI: this user's canvases, the widgets on them and the conversation of each widget, the generation, build and publish calls that make a widget, and the compositions of those widgets (list, make). The surfaces do not imply one another: the whole creator also saves a composition (`editor`) and attaches pictures to its chat (`files`), so ask for `[\"creator\", \"editor\", \"files\"]`. `workflows` is the Workflows editor: this user's own workflows (list, make, make from one of your starting points, draw, publish, pause, resume, archive, delete, the version history and the counts) under `/workspaces/personal/workflows`, and the compositions made for this user, which are the only ones a workflow of theirs can chain. A workflow is filed under the user it was made for (`managedUserId`), and the session reaches nothing of another user's, nor of yours.
      *
      * @return self
      */

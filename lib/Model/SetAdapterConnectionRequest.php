@@ -309,7 +309,7 @@ class SetAdapterConnectionRequest implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets credential
      *
-     * @param string $credential The key exactly as its provider gave it: one line of text, at most 2048 characters. It is stored encrypted and is never returned or logged.
+     * @param string $credential The key exactly as its provider gave it: one line of text, at most 2048 characters. It is stored encrypted and is never returned or logged. For a credential that is an email address (`confirmation: email_code`), write that one address, with nothing else
      *
      * @return self
      */

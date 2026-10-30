@@ -120,12 +120,60 @@ class PublicEmbedApiTest extends TestCase
     }
 
     /**
+     * Test case for getPublicWorkflowFrame_0
+     *
+     * Show a published Workflow in a page of its own.
+     *
+     */
+    public function testGetPublicWorkflowFrame0()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for getPublicWorkflowVersion_0
+     *
+     * Read one published version of a Workflow.
+     *
+     */
+    public function testGetPublicWorkflowVersion0()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for getPublicWorkflow_0
+     *
+     * Read the published Workflow of an embed.
+     *
+     */
+    public function testGetPublicWorkflow0()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for postPublicCompositionEmbedStatus_0
      *
      * Batch-check whether compositions are currently served for embed.
      *
      */
     public function testPostPublicCompositionEmbedStatus0()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for reportPublicWorkflowEvents_0
+     *
+     * Report what visitors did in a Workflow, as counts.
+     *
+     */
+    public function testReportPublicWorkflowEvents0()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

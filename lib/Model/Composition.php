@@ -71,7 +71,9 @@ class Composition implements ModelInterface, ArrayAccess, \JsonSerializable
         'database_id' => 'string',
         'project_id' => 'string',
         'managed_user_id' => 'string',
-        'direct' => 'bool'
+        'direct' => 'bool',
+        'last_edited_by' => '\WidgeticApi\Model\CompositionLastEditedBy',
+        'last_edited_at' => '\DateTime'
     ];
 
     /**
@@ -96,7 +98,9 @@ class Composition implements ModelInterface, ArrayAccess, \JsonSerializable
         'database_id' => 'uuid',
         'project_id' => 'uuid',
         'managed_user_id' => 'uuid',
-        'direct' => null
+        'direct' => null,
+        'last_edited_by' => null,
+        'last_edited_at' => 'date-time'
     ];
 
     /**
@@ -119,7 +123,9 @@ class Composition implements ModelInterface, ArrayAccess, \JsonSerializable
         'database_id' => false,
         'project_id' => false,
         'managed_user_id' => true,
-        'direct' => true
+        'direct' => true,
+        'last_edited_by' => true,
+        'last_edited_at' => true
     ];
 
     /**
@@ -222,7 +228,9 @@ class Composition implements ModelInterface, ArrayAccess, \JsonSerializable
         'database_id' => 'databaseId',
         'project_id' => 'projectId',
         'managed_user_id' => 'managedUserId',
-        'direct' => 'direct'
+        'direct' => 'direct',
+        'last_edited_by' => 'lastEditedBy',
+        'last_edited_at' => 'lastEditedAt'
     ];
 
     /**
@@ -245,7 +253,9 @@ class Composition implements ModelInterface, ArrayAccess, \JsonSerializable
         'database_id' => 'setDatabaseId',
         'project_id' => 'setProjectId',
         'managed_user_id' => 'setManagedUserId',
-        'direct' => 'setDirect'
+        'direct' => 'setDirect',
+        'last_edited_by' => 'setLastEditedBy',
+        'last_edited_at' => 'setLastEditedAt'
     ];
 
     /**
@@ -268,7 +278,9 @@ class Composition implements ModelInterface, ArrayAccess, \JsonSerializable
         'database_id' => 'getDatabaseId',
         'project_id' => 'getProjectId',
         'managed_user_id' => 'getManagedUserId',
-        'direct' => 'getDirect'
+        'direct' => 'getDirect',
+        'last_edited_by' => 'getLastEditedBy',
+        'last_edited_at' => 'getLastEditedAt'
     ];
 
     /**
@@ -360,6 +372,8 @@ class Composition implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('project_id', $data ?? [], null);
         $this->setIfExists('managed_user_id', $data ?? [], null);
         $this->setIfExists('direct', $data ?? [], null);
+        $this->setIfExists('last_edited_by', $data ?? [], null);
+        $this->setIfExists('last_edited_at', $data ?? [], null);
     }
 
     /**
@@ -862,6 +876,74 @@ class Composition implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['direct'] = $direct;
+
+        return $this;
+    }
+
+    /**
+     * Gets last_edited_by
+     *
+     * @return \WidgeticApi\Model\CompositionLastEditedBy|null
+     */
+    public function getLastEditedBy()
+    {
+        return $this->container['last_edited_by'];
+    }
+
+    /**
+     * Sets last_edited_by
+     *
+     * @param \WidgeticApi\Model\CompositionLastEditedBy|null $last_edited_by last_edited_by
+     *
+     * @return self
+     */
+    public function setLastEditedBy($last_edited_by)
+    {
+        if (is_null($last_edited_by)) {
+            array_push($this->openAPINullablesSetToNull, 'last_edited_by');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('last_edited_by', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['last_edited_by'] = $last_edited_by;
+
+        return $this;
+    }
+
+    /**
+     * Gets last_edited_at
+     *
+     * @return \DateTime|null
+     */
+    public function getLastEditedAt()
+    {
+        return $this->container['last_edited_at'];
+    }
+
+    /**
+     * Sets last_edited_at
+     *
+     * @param \DateTime|null $last_edited_at When that latest change was made. Present whenever `lastEditedBy` is.
+     *
+     * @return self
+     */
+    public function setLastEditedAt($last_edited_at)
+    {
+        if (is_null($last_edited_at)) {
+            array_push($this->openAPINullablesSetToNull, 'last_edited_at');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('last_edited_at', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['last_edited_at'] = $last_edited_at;
 
         return $this;
     }

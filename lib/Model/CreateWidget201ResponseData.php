@@ -73,8 +73,7 @@ class CreateWidget201ResponseData implements ModelInterface, ArrayAccess, \JsonS
         'repo_id' => 'string',
         'database_id' => 'string',
         'version' => 'float',
-        'cpg_schema_id' => 'string',
-        'last_cpg_commit_sha' => 'string',
+        'last_commit_sha' => 'string',
         'organization_id' => 'string',
         'project_folder' => 'string',
         'workspace_type' => 'string',
@@ -106,8 +105,7 @@ class CreateWidget201ResponseData implements ModelInterface, ArrayAccess, \JsonS
         'repo_id' => null,
         'database_id' => null,
         'version' => 'float',
-        'cpg_schema_id' => null,
-        'last_cpg_commit_sha' => null,
+        'last_commit_sha' => null,
         'organization_id' => 'uuid',
         'project_folder' => null,
         'workspace_type' => null,
@@ -137,8 +135,7 @@ class CreateWidget201ResponseData implements ModelInterface, ArrayAccess, \JsonS
         'repo_id' => true,
         'database_id' => true,
         'version' => true,
-        'cpg_schema_id' => true,
-        'last_cpg_commit_sha' => true,
+        'last_commit_sha' => true,
         'organization_id' => true,
         'project_folder' => true,
         'workspace_type' => true,
@@ -248,8 +245,7 @@ class CreateWidget201ResponseData implements ModelInterface, ArrayAccess, \JsonS
         'repo_id' => 'repoId',
         'database_id' => 'databaseId',
         'version' => 'version',
-        'cpg_schema_id' => 'cpgSchemaId',
-        'last_cpg_commit_sha' => 'lastCpgCommitSha',
+        'last_commit_sha' => 'lastCommitSha',
         'organization_id' => 'organizationId',
         'project_folder' => 'projectFolder',
         'workspace_type' => 'workspaceType',
@@ -279,8 +275,7 @@ class CreateWidget201ResponseData implements ModelInterface, ArrayAccess, \JsonS
         'repo_id' => 'setRepoId',
         'database_id' => 'setDatabaseId',
         'version' => 'setVersion',
-        'cpg_schema_id' => 'setCpgSchemaId',
-        'last_cpg_commit_sha' => 'setLastCpgCommitSha',
+        'last_commit_sha' => 'setLastCommitSha',
         'organization_id' => 'setOrganizationId',
         'project_folder' => 'setProjectFolder',
         'workspace_type' => 'setWorkspaceType',
@@ -310,8 +305,7 @@ class CreateWidget201ResponseData implements ModelInterface, ArrayAccess, \JsonS
         'repo_id' => 'getRepoId',
         'database_id' => 'getDatabaseId',
         'version' => 'getVersion',
-        'cpg_schema_id' => 'getCpgSchemaId',
-        'last_cpg_commit_sha' => 'getLastCpgCommitSha',
+        'last_commit_sha' => 'getLastCommitSha',
         'organization_id' => 'getOrganizationId',
         'project_folder' => 'getProjectFolder',
         'workspace_type' => 'getWorkspaceType',
@@ -407,8 +401,7 @@ class CreateWidget201ResponseData implements ModelInterface, ArrayAccess, \JsonS
         $this->setIfExists('repo_id', $data ?? [], null);
         $this->setIfExists('database_id', $data ?? [], null);
         $this->setIfExists('version', $data ?? [], null);
-        $this->setIfExists('cpg_schema_id', $data ?? [], null);
-        $this->setIfExists('last_cpg_commit_sha', $data ?? [], null);
+        $this->setIfExists('last_commit_sha', $data ?? [], null);
         $this->setIfExists('organization_id', $data ?? [], null);
         $this->setIfExists('project_folder', $data ?? [], null);
         $this->setIfExists('workspace_type', $data ?? [], null);
@@ -949,69 +942,35 @@ class CreateWidget201ResponseData implements ModelInterface, ArrayAccess, \JsonS
     }
 
     /**
-     * Gets cpg_schema_id
+     * Gets last_commit_sha
      *
      * @return string|null
      */
-    public function getCpgSchemaId()
+    public function getLastCommitSha()
     {
-        return $this->container['cpg_schema_id'];
+        return $this->container['last_commit_sha'];
     }
 
     /**
-     * Sets cpg_schema_id
+     * Sets last_commit_sha
      *
-     * @param string|null $cpg_schema_id ID linking to the widget's code graph schema.
+     * @param string|null $last_commit_sha Latest Git commit SHA of the widget's code repository.
      *
      * @return self
      */
-    public function setCpgSchemaId($cpg_schema_id)
+    public function setLastCommitSha($last_commit_sha)
     {
-        if (is_null($cpg_schema_id)) {
-            array_push($this->openAPINullablesSetToNull, 'cpg_schema_id');
+        if (is_null($last_commit_sha)) {
+            array_push($this->openAPINullablesSetToNull, 'last_commit_sha');
         } else {
             $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('cpg_schema_id', $nullablesSetToNull);
+            $index = array_search('last_commit_sha', $nullablesSetToNull);
             if ($index !== FALSE) {
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
-        $this->container['cpg_schema_id'] = $cpg_schema_id;
-
-        return $this;
-    }
-
-    /**
-     * Gets last_cpg_commit_sha
-     *
-     * @return string|null
-     */
-    public function getLastCpgCommitSha()
-    {
-        return $this->container['last_cpg_commit_sha'];
-    }
-
-    /**
-     * Sets last_cpg_commit_sha
-     *
-     * @param string|null $last_cpg_commit_sha Last Git commit SHA analyzed for code graph.
-     *
-     * @return self
-     */
-    public function setLastCpgCommitSha($last_cpg_commit_sha)
-    {
-        if (is_null($last_cpg_commit_sha)) {
-            array_push($this->openAPINullablesSetToNull, 'last_cpg_commit_sha');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('last_cpg_commit_sha', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['last_cpg_commit_sha'] = $last_cpg_commit_sha;
+        $this->container['last_commit_sha'] = $last_commit_sha;
 
         return $this;
     }

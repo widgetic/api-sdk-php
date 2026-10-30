@@ -75,6 +75,14 @@ class PartnerNotificationEventType
 
     public const ENTRY_CREATED = 'entry.created';
 
+    public const WORKFLOW_CREATED = 'workflow.created';
+
+    public const WORKFLOW_PUBLISHED = 'workflow.published';
+
+    public const WORKFLOW_STATE_CHANGED = 'workflow.state_changed';
+
+    public const WORKFLOW_DELETED = 'workflow.deleted';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -97,7 +105,11 @@ class PartnerNotificationEventType
             self::COMPOSITION_UPDATED,
             self::WIDGET_PUBLISHED,
             self::UPLOAD_CREATED,
-            self::ENTRY_CREATED
+            self::ENTRY_CREATED,
+            self::WORKFLOW_CREATED,
+            self::WORKFLOW_PUBLISHED,
+            self::WORKFLOW_STATE_CHANGED,
+            self::WORKFLOW_DELETED
         ];
     }
 }

@@ -71,6 +71,9 @@ class PartnersApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'confirmPartnerAdapterConnection_0' => [
+            'application/json',
+        ],
         'createPartnerExtraCreditsInvoice_0' => [
             'application/json',
         ],
@@ -131,6 +134,9 @@ class PartnersApi
         'listPartnerPresets_0' => [
             'application/json',
         ],
+        'listPartnerWorkflowPresets_0' => [
+            'application/json',
+        ],
         'removePartnerAdapterConnection_0' => [
             'application/json',
         ],
@@ -141,6 +147,9 @@ class PartnersApi
             'application/json',
         ],
         'removePartnerStorageDestination_0' => [
+            'application/json',
+        ],
+        'removePartnerWorkflowPreset_0' => [
             'application/json',
         ],
         'replayPartnerNotificationDelivery_0' => [
@@ -168,6 +177,9 @@ class PartnersApi
             'application/json',
         ],
         'setPartnerStorageDestination_0' => [
+            'application/json',
+        ],
+        'setPartnerWorkflowPreset_0' => [
             'application/json',
         ],
         'updatePartnerEntryContextSigning_0' => [
@@ -228,6 +240,663 @@ class PartnersApi
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Operation confirmPartnerAdapterConnection_0
+     *
+     * Confirm a partner&#39;s adapter address with the code that was emailed to it
+     *
+     * @param  string $partner_id The partner that keeps the address (required)
+     * @param  string $adapter_id The adapter the address is for (required)
+     * @param  string $credential_key The credential&#39;s name within the adapter (required)
+     * @param  \WidgeticApi\Model\ConfirmAdapterConnectionRequest $confirm_adapter_connection_request confirm_adapter_connection_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['confirmPartnerAdapterConnection_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \WidgeticApi\Model\SetUserAdapterConnection200Response|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse
+     */
+    public function confirmPartnerAdapterConnection_0($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request, string $contentType = self::contentTypes['confirmPartnerAdapterConnection_0'][0])
+    {
+        list($response) = $this->confirmPartnerAdapterConnection_0WithHttpInfo($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation confirmPartnerAdapterConnection_0WithHttpInfo
+     *
+     * Confirm a partner&#39;s adapter address with the code that was emailed to it
+     *
+     * @param  string $partner_id The partner that keeps the address (required)
+     * @param  string $adapter_id The adapter the address is for (required)
+     * @param  string $credential_key The credential&#39;s name within the adapter (required)
+     * @param  \WidgeticApi\Model\ConfirmAdapterConnectionRequest $confirm_adapter_connection_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['confirmPartnerAdapterConnection_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \WidgeticApi\Model\SetUserAdapterConnection200Response|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function confirmPartnerAdapterConnection_0WithHttpInfo($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request, string $contentType = self::contentTypes['confirmPartnerAdapterConnection_0'][0])
+    {
+        $request = $this->confirmPartnerAdapterConnection_0Request($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    if ('\WidgeticApi\Model\SetUserAdapterConnection200Response' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\SetUserAdapterConnection200Response' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\SetUserAdapterConnection200Response', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 409:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 422:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 429:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 503:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            $returnType = '\WidgeticApi\Model\SetUserAdapterConnection200Response';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\SetUserAdapterConnection200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation confirmPartnerAdapterConnection_0Async
+     *
+     * Confirm a partner&#39;s adapter address with the code that was emailed to it
+     *
+     * @param  string $partner_id The partner that keeps the address (required)
+     * @param  string $adapter_id The adapter the address is for (required)
+     * @param  string $credential_key The credential&#39;s name within the adapter (required)
+     * @param  \WidgeticApi\Model\ConfirmAdapterConnectionRequest $confirm_adapter_connection_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['confirmPartnerAdapterConnection_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function confirmPartnerAdapterConnection_0Async($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request, string $contentType = self::contentTypes['confirmPartnerAdapterConnection_0'][0])
+    {
+        return $this->confirmPartnerAdapterConnection_0AsyncWithHttpInfo($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation confirmPartnerAdapterConnection_0AsyncWithHttpInfo
+     *
+     * Confirm a partner&#39;s adapter address with the code that was emailed to it
+     *
+     * @param  string $partner_id The partner that keeps the address (required)
+     * @param  string $adapter_id The adapter the address is for (required)
+     * @param  string $credential_key The credential&#39;s name within the adapter (required)
+     * @param  \WidgeticApi\Model\ConfirmAdapterConnectionRequest $confirm_adapter_connection_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['confirmPartnerAdapterConnection_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function confirmPartnerAdapterConnection_0AsyncWithHttpInfo($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request, string $contentType = self::contentTypes['confirmPartnerAdapterConnection_0'][0])
+    {
+        $returnType = '\WidgeticApi\Model\SetUserAdapterConnection200Response';
+        $request = $this->confirmPartnerAdapterConnection_0Request($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'confirmPartnerAdapterConnection_0'
+     *
+     * @param  string $partner_id The partner that keeps the address (required)
+     * @param  string $adapter_id The adapter the address is for (required)
+     * @param  string $credential_key The credential&#39;s name within the adapter (required)
+     * @param  \WidgeticApi\Model\ConfirmAdapterConnectionRequest $confirm_adapter_connection_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['confirmPartnerAdapterConnection_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function confirmPartnerAdapterConnection_0Request($partner_id, $adapter_id, $credential_key, $confirm_adapter_connection_request, string $contentType = self::contentTypes['confirmPartnerAdapterConnection_0'][0])
+    {
+
+        // verify the required parameter 'partner_id' is set
+        if ($partner_id === null || (is_array($partner_id) && count($partner_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $partner_id when calling confirmPartnerAdapterConnection_0'
+            );
+        }
+
+        // verify the required parameter 'adapter_id' is set
+        if ($adapter_id === null || (is_array($adapter_id) && count($adapter_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $adapter_id when calling confirmPartnerAdapterConnection_0'
+            );
+        }
+        if (strlen($adapter_id) > 40) {
+            throw new \InvalidArgumentException('invalid length for "$adapter_id" when calling PartnersApi.confirmPartnerAdapterConnection_0, must be smaller than or equal to 40.');
+        }
+        
+        // verify the required parameter 'credential_key' is set
+        if ($credential_key === null || (is_array($credential_key) && count($credential_key) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $credential_key when calling confirmPartnerAdapterConnection_0'
+            );
+        }
+        if (strlen($credential_key) > 40) {
+            throw new \InvalidArgumentException('invalid length for "$credential_key" when calling PartnersApi.confirmPartnerAdapterConnection_0, must be smaller than or equal to 40.');
+        }
+        
+        // verify the required parameter 'confirm_adapter_connection_request' is set
+        if ($confirm_adapter_connection_request === null || (is_array($confirm_adapter_connection_request) && count($confirm_adapter_connection_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $confirm_adapter_connection_request when calling confirmPartnerAdapterConnection_0'
+            );
+        }
+
+
+        $resourcePath = '/partners/{partnerId}/adapter-connections/{adapterId}/{credentialKey}/confirm';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($partner_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'partnerId' . '}',
+                ObjectSerializer::toPathValue($partner_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($adapter_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'adapterId' . '}',
+                ObjectSerializer::toPathValue($adapter_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($credential_key !== null) {
+            $resourcePath = str_replace(
+                '{' . 'credentialKey' . '}',
+                ObjectSerializer::toPathValue($credential_key),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($confirm_adapter_connection_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($confirm_adapter_connection_request));
+            } else {
+                $httpBody = $confirm_adapter_connection_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
     }
 
     /**
@@ -9905,6 +10574,528 @@ class PartnersApi
     }
 
     /**
+     * Operation listPartnerWorkflowPresets_0
+     *
+     * List the workflows a partner offers as places to start
+     *
+     * @param  string $partner_id The partner whose starting points to list (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listPartnerWorkflowPresets_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \WidgeticApi\Model\ListPartnerWorkflowPresets200Response|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse
+     */
+    public function listPartnerWorkflowPresets_0($partner_id, string $contentType = self::contentTypes['listPartnerWorkflowPresets_0'][0])
+    {
+        list($response) = $this->listPartnerWorkflowPresets_0WithHttpInfo($partner_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation listPartnerWorkflowPresets_0WithHttpInfo
+     *
+     * List the workflows a partner offers as places to start
+     *
+     * @param  string $partner_id The partner whose starting points to list (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listPartnerWorkflowPresets_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \WidgeticApi\Model\ListPartnerWorkflowPresets200Response|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listPartnerWorkflowPresets_0WithHttpInfo($partner_id, string $contentType = self::contentTypes['listPartnerWorkflowPresets_0'][0])
+    {
+        $request = $this->listPartnerWorkflowPresets_0Request($partner_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    if ('\WidgeticApi\Model\ListPartnerWorkflowPresets200Response' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ListPartnerWorkflowPresets200Response' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ListPartnerWorkflowPresets200Response', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 409:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 503:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            $returnType = '\WidgeticApi\Model\ListPartnerWorkflowPresets200Response';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ListPartnerWorkflowPresets200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listPartnerWorkflowPresets_0Async
+     *
+     * List the workflows a partner offers as places to start
+     *
+     * @param  string $partner_id The partner whose starting points to list (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listPartnerWorkflowPresets_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listPartnerWorkflowPresets_0Async($partner_id, string $contentType = self::contentTypes['listPartnerWorkflowPresets_0'][0])
+    {
+        return $this->listPartnerWorkflowPresets_0AsyncWithHttpInfo($partner_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listPartnerWorkflowPresets_0AsyncWithHttpInfo
+     *
+     * List the workflows a partner offers as places to start
+     *
+     * @param  string $partner_id The partner whose starting points to list (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listPartnerWorkflowPresets_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listPartnerWorkflowPresets_0AsyncWithHttpInfo($partner_id, string $contentType = self::contentTypes['listPartnerWorkflowPresets_0'][0])
+    {
+        $returnType = '\WidgeticApi\Model\ListPartnerWorkflowPresets200Response';
+        $request = $this->listPartnerWorkflowPresets_0Request($partner_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listPartnerWorkflowPresets_0'
+     *
+     * @param  string $partner_id The partner whose starting points to list (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listPartnerWorkflowPresets_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listPartnerWorkflowPresets_0Request($partner_id, string $contentType = self::contentTypes['listPartnerWorkflowPresets_0'][0])
+    {
+
+        // verify the required parameter 'partner_id' is set
+        if ($partner_id === null || (is_array($partner_id) && count($partner_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $partner_id when calling listPartnerWorkflowPresets_0'
+            );
+        }
+
+
+        $resourcePath = '/partners/{partnerId}/workflow-presets';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($partner_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'partnerId' . '}',
+                ObjectSerializer::toPathValue($partner_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation removePartnerAdapterConnection_0
      *
      * Remove an adapter key from a partner
@@ -11754,6 +12945,551 @@ class PartnersApi
             $resourcePath = str_replace(
                 '{' . 'partnerId' . '}',
                 ObjectSerializer::toPathValue($partner_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation removePartnerWorkflowPreset_0
+     *
+     * Stop offering a workflow as a place to start
+     *
+     * @param  string $partner_id The partner whose starting point to remove (required)
+     * @param  string $key The key of the starting point to remove (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['removePartnerWorkflowPreset_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \WidgeticApi\Model\RemovePartnerWorkflowPreset200Response|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse
+     */
+    public function removePartnerWorkflowPreset_0($partner_id, $key, string $contentType = self::contentTypes['removePartnerWorkflowPreset_0'][0])
+    {
+        list($response) = $this->removePartnerWorkflowPreset_0WithHttpInfo($partner_id, $key, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation removePartnerWorkflowPreset_0WithHttpInfo
+     *
+     * Stop offering a workflow as a place to start
+     *
+     * @param  string $partner_id The partner whose starting point to remove (required)
+     * @param  string $key The key of the starting point to remove (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['removePartnerWorkflowPreset_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \WidgeticApi\Model\RemovePartnerWorkflowPreset200Response|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function removePartnerWorkflowPreset_0WithHttpInfo($partner_id, $key, string $contentType = self::contentTypes['removePartnerWorkflowPreset_0'][0])
+    {
+        $request = $this->removePartnerWorkflowPreset_0Request($partner_id, $key, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    if ('\WidgeticApi\Model\RemovePartnerWorkflowPreset200Response' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\RemovePartnerWorkflowPreset200Response' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\RemovePartnerWorkflowPreset200Response', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 409:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 503:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            $returnType = '\WidgeticApi\Model\RemovePartnerWorkflowPreset200Response';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\RemovePartnerWorkflowPreset200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation removePartnerWorkflowPreset_0Async
+     *
+     * Stop offering a workflow as a place to start
+     *
+     * @param  string $partner_id The partner whose starting point to remove (required)
+     * @param  string $key The key of the starting point to remove (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['removePartnerWorkflowPreset_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function removePartnerWorkflowPreset_0Async($partner_id, $key, string $contentType = self::contentTypes['removePartnerWorkflowPreset_0'][0])
+    {
+        return $this->removePartnerWorkflowPreset_0AsyncWithHttpInfo($partner_id, $key, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation removePartnerWorkflowPreset_0AsyncWithHttpInfo
+     *
+     * Stop offering a workflow as a place to start
+     *
+     * @param  string $partner_id The partner whose starting point to remove (required)
+     * @param  string $key The key of the starting point to remove (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['removePartnerWorkflowPreset_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function removePartnerWorkflowPreset_0AsyncWithHttpInfo($partner_id, $key, string $contentType = self::contentTypes['removePartnerWorkflowPreset_0'][0])
+    {
+        $returnType = '\WidgeticApi\Model\RemovePartnerWorkflowPreset200Response';
+        $request = $this->removePartnerWorkflowPreset_0Request($partner_id, $key, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'removePartnerWorkflowPreset_0'
+     *
+     * @param  string $partner_id The partner whose starting point to remove (required)
+     * @param  string $key The key of the starting point to remove (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['removePartnerWorkflowPreset_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function removePartnerWorkflowPreset_0Request($partner_id, $key, string $contentType = self::contentTypes['removePartnerWorkflowPreset_0'][0])
+    {
+
+        // verify the required parameter 'partner_id' is set
+        if ($partner_id === null || (is_array($partner_id) && count($partner_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $partner_id when calling removePartnerWorkflowPreset_0'
+            );
+        }
+
+        // verify the required parameter 'key' is set
+        if ($key === null || (is_array($key) && count($key) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $key when calling removePartnerWorkflowPreset_0'
+            );
+        }
+        if (!preg_match("/^[a-z0-9][a-z0-9_-]{0,63}$/", $key)) {
+            throw new \InvalidArgumentException("invalid value for \"key\" when calling PartnersApi.removePartnerWorkflowPreset_0, must conform to the pattern /^[a-z0-9][a-z0-9_-]{0,63}$/.");
+        }
+        
+
+        $resourcePath = '/partners/{partnerId}/workflow-presets/{key}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($partner_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'partnerId' . '}',
+                ObjectSerializer::toPathValue($partner_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($key !== null) {
+            $resourcePath = str_replace(
+                '{' . 'key' . '}',
+                ObjectSerializer::toPathValue($key),
                 $resourcePath
             );
         }
@@ -16766,6 +18502,605 @@ class PartnersApi
                 $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($set_partner_storage_destination_request));
             } else {
                 $httpBody = $set_partner_storage_destination_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation setPartnerWorkflowPreset_0
+     *
+     * Offer a workflow as a place to start, or replace what a key offers
+     *
+     * @param  string $partner_id The partner whose starting point to set (required)
+     * @param  string $key The name your code and the picker use for the starting point (required)
+     * @param  \WidgeticApi\Model\OfferWorkflowPresetRequest $offer_workflow_preset_request offer_workflow_preset_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setPartnerWorkflowPreset_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \WidgeticApi\Model\SetPartnerWorkflowPreset200Response|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse
+     */
+    public function setPartnerWorkflowPreset_0($partner_id, $key, $offer_workflow_preset_request, string $contentType = self::contentTypes['setPartnerWorkflowPreset_0'][0])
+    {
+        list($response) = $this->setPartnerWorkflowPreset_0WithHttpInfo($partner_id, $key, $offer_workflow_preset_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation setPartnerWorkflowPreset_0WithHttpInfo
+     *
+     * Offer a workflow as a place to start, or replace what a key offers
+     *
+     * @param  string $partner_id The partner whose starting point to set (required)
+     * @param  string $key The name your code and the picker use for the starting point (required)
+     * @param  \WidgeticApi\Model\OfferWorkflowPresetRequest $offer_workflow_preset_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setPartnerWorkflowPreset_0'] to see the possible values for this operation
+     *
+     * @throws \WidgeticApi\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \WidgeticApi\Model\SetPartnerWorkflowPreset200Response|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse|\WidgeticApi\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function setPartnerWorkflowPreset_0WithHttpInfo($partner_id, $key, $offer_workflow_preset_request, string $contentType = self::contentTypes['setPartnerWorkflowPreset_0'][0])
+    {
+        $request = $this->setPartnerWorkflowPreset_0Request($partner_id, $key, $offer_workflow_preset_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    if ('\WidgeticApi\Model\SetPartnerWorkflowPreset200Response' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\SetPartnerWorkflowPreset200Response' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\SetPartnerWorkflowPreset200Response', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 409:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 422:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 503:
+                    if ('\WidgeticApi\Model\ErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\WidgeticApi\Model\ErrorResponse' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\WidgeticApi\Model\ErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            $returnType = '\WidgeticApi\Model\SetPartnerWorkflowPreset200Response';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\SetPartnerWorkflowPreset200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\WidgeticApi\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation setPartnerWorkflowPreset_0Async
+     *
+     * Offer a workflow as a place to start, or replace what a key offers
+     *
+     * @param  string $partner_id The partner whose starting point to set (required)
+     * @param  string $key The name your code and the picker use for the starting point (required)
+     * @param  \WidgeticApi\Model\OfferWorkflowPresetRequest $offer_workflow_preset_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setPartnerWorkflowPreset_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setPartnerWorkflowPreset_0Async($partner_id, $key, $offer_workflow_preset_request, string $contentType = self::contentTypes['setPartnerWorkflowPreset_0'][0])
+    {
+        return $this->setPartnerWorkflowPreset_0AsyncWithHttpInfo($partner_id, $key, $offer_workflow_preset_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation setPartnerWorkflowPreset_0AsyncWithHttpInfo
+     *
+     * Offer a workflow as a place to start, or replace what a key offers
+     *
+     * @param  string $partner_id The partner whose starting point to set (required)
+     * @param  string $key The name your code and the picker use for the starting point (required)
+     * @param  \WidgeticApi\Model\OfferWorkflowPresetRequest $offer_workflow_preset_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setPartnerWorkflowPreset_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setPartnerWorkflowPreset_0AsyncWithHttpInfo($partner_id, $key, $offer_workflow_preset_request, string $contentType = self::contentTypes['setPartnerWorkflowPreset_0'][0])
+    {
+        $returnType = '\WidgeticApi\Model\SetPartnerWorkflowPreset200Response';
+        $request = $this->setPartnerWorkflowPreset_0Request($partner_id, $key, $offer_workflow_preset_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'setPartnerWorkflowPreset_0'
+     *
+     * @param  string $partner_id The partner whose starting point to set (required)
+     * @param  string $key The name your code and the picker use for the starting point (required)
+     * @param  \WidgeticApi\Model\OfferWorkflowPresetRequest $offer_workflow_preset_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setPartnerWorkflowPreset_0'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function setPartnerWorkflowPreset_0Request($partner_id, $key, $offer_workflow_preset_request, string $contentType = self::contentTypes['setPartnerWorkflowPreset_0'][0])
+    {
+
+        // verify the required parameter 'partner_id' is set
+        if ($partner_id === null || (is_array($partner_id) && count($partner_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $partner_id when calling setPartnerWorkflowPreset_0'
+            );
+        }
+
+        // verify the required parameter 'key' is set
+        if ($key === null || (is_array($key) && count($key) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $key when calling setPartnerWorkflowPreset_0'
+            );
+        }
+        if (!preg_match("/^[a-z0-9][a-z0-9_-]{0,63}$/", $key)) {
+            throw new \InvalidArgumentException("invalid value for \"key\" when calling PartnersApi.setPartnerWorkflowPreset_0, must conform to the pattern /^[a-z0-9][a-z0-9_-]{0,63}$/.");
+        }
+        
+        // verify the required parameter 'offer_workflow_preset_request' is set
+        if ($offer_workflow_preset_request === null || (is_array($offer_workflow_preset_request) && count($offer_workflow_preset_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $offer_workflow_preset_request when calling setPartnerWorkflowPreset_0'
+            );
+        }
+
+
+        $resourcePath = '/partners/{partnerId}/workflow-presets/{key}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($partner_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'partnerId' . '}',
+                ObjectSerializer::toPathValue($partner_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($key !== null) {
+            $resourcePath = str_replace(
+                '{' . 'key' . '}',
+                ObjectSerializer::toPathValue($key),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($offer_workflow_preset_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($offer_workflow_preset_request));
+            } else {
+                $httpBody = $offer_workflow_preset_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

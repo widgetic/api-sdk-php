@@ -84,6 +84,18 @@ class UsersApiTest extends TestCase
     }
 
     /**
+     * Test case for confirmUserAdapterConnection_0
+     *
+     * Confirm an adapter address with the code that was emailed to it.
+     *
+     */
+    public function testConfirmUserAdapterConnection0()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for createUserApiKey_0
      *
      * Create an API key.

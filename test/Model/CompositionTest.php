@@ -213,4 +213,22 @@ class CompositionTest extends TestCase
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "last_edited_by"
+     */
+    public function testPropertyLastEditedBy()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "last_edited_at"
+     */
+    public function testPropertyLastEditedAt()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
 }

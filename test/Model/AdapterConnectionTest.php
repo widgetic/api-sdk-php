@@ -141,4 +141,31 @@ class AdapterConnectionTest extends TestCase
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "confirmation"
+     */
+    public function testPropertyConfirmation()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "awaiting_confirmation"
+     */
+    public function testPropertyAwaitingConfirmation()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "confirmed_at"
+     */
+    public function testPropertyConfirmedAt()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
 }

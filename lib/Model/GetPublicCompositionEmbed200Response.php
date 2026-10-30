@@ -65,12 +65,15 @@ class GetPublicCompositionEmbed200Response implements ModelInterface, ArrayAcces
         'data_source' => '\WidgeticApi\Model\GetPublicCompositionEmbed200ResponseDataSource',
         'embed_url' => 'string',
         'entry_write_token' => 'string',
+        'entries' => '\WidgeticApi\Model\GetPublicCompositionEmbed200ResponseEntries',
+        'adapters' => '\WidgeticApi\Model\GetPublicCompositionEmbed200ResponseAdapters',
         'width' => 'int',
         'height' => 'int',
         'design' => 'object',
         'content' => 'object',
         'content_items' => 'array<string,mixed>[]',
         'iframe_allow' => 'string',
+        'media' => '\WidgeticApi\Model\GetPublicCompositionEmbed200ResponseMedia',
         'direct' => '\WidgeticApi\Model\GetPublicCompositionEmbed200ResponseDirect'
     ];
 
@@ -90,12 +93,15 @@ class GetPublicCompositionEmbed200Response implements ModelInterface, ArrayAcces
         'data_source' => null,
         'embed_url' => null,
         'entry_write_token' => null,
+        'entries' => null,
+        'adapters' => null,
         'width' => null,
         'height' => null,
         'design' => null,
         'content' => null,
         'content_items' => null,
         'iframe_allow' => null,
+        'media' => null,
         'direct' => null
     ];
 
@@ -113,12 +119,15 @@ class GetPublicCompositionEmbed200Response implements ModelInterface, ArrayAcces
         'data_source' => true,
         'embed_url' => false,
         'entry_write_token' => false,
+        'entries' => false,
+        'adapters' => false,
         'width' => false,
         'height' => false,
         'design' => false,
         'content' => false,
         'content_items' => false,
         'iframe_allow' => false,
+        'media' => false,
         'direct' => true
     ];
 
@@ -216,12 +225,15 @@ class GetPublicCompositionEmbed200Response implements ModelInterface, ArrayAcces
         'data_source' => 'dataSource',
         'embed_url' => 'embedUrl',
         'entry_write_token' => 'entryWriteToken',
+        'entries' => 'entries',
+        'adapters' => 'adapters',
         'width' => 'width',
         'height' => 'height',
         'design' => 'design',
         'content' => 'content',
         'content_items' => 'contentItems',
         'iframe_allow' => 'iframeAllow',
+        'media' => 'media',
         'direct' => 'direct'
     ];
 
@@ -239,12 +251,15 @@ class GetPublicCompositionEmbed200Response implements ModelInterface, ArrayAcces
         'data_source' => 'setDataSource',
         'embed_url' => 'setEmbedUrl',
         'entry_write_token' => 'setEntryWriteToken',
+        'entries' => 'setEntries',
+        'adapters' => 'setAdapters',
         'width' => 'setWidth',
         'height' => 'setHeight',
         'design' => 'setDesign',
         'content' => 'setContent',
         'content_items' => 'setContentItems',
         'iframe_allow' => 'setIframeAllow',
+        'media' => 'setMedia',
         'direct' => 'setDirect'
     ];
 
@@ -262,12 +277,15 @@ class GetPublicCompositionEmbed200Response implements ModelInterface, ArrayAcces
         'data_source' => 'getDataSource',
         'embed_url' => 'getEmbedUrl',
         'entry_write_token' => 'getEntryWriteToken',
+        'entries' => 'getEntries',
+        'adapters' => 'getAdapters',
         'width' => 'getWidth',
         'height' => 'getHeight',
         'design' => 'getDesign',
         'content' => 'getContent',
         'content_items' => 'getContentItems',
         'iframe_allow' => 'getIframeAllow',
+        'media' => 'getMedia',
         'direct' => 'getDirect'
     ];
 
@@ -336,12 +354,15 @@ class GetPublicCompositionEmbed200Response implements ModelInterface, ArrayAcces
         $this->setIfExists('data_source', $data ?? [], null);
         $this->setIfExists('embed_url', $data ?? [], null);
         $this->setIfExists('entry_write_token', $data ?? [], null);
+        $this->setIfExists('entries', $data ?? [], null);
+        $this->setIfExists('adapters', $data ?? [], null);
         $this->setIfExists('width', $data ?? [], null);
         $this->setIfExists('height', $data ?? [], null);
         $this->setIfExists('design', $data ?? [], null);
         $this->setIfExists('content', $data ?? [], null);
         $this->setIfExists('content_items', $data ?? [], null);
         $this->setIfExists('iframe_allow', $data ?? [], null);
+        $this->setIfExists('media', $data ?? [], null);
         $this->setIfExists('direct', $data ?? [], null);
     }
 
@@ -508,7 +529,7 @@ class GetPublicCompositionEmbed200Response implements ModelInterface, ArrayAcces
     /**
      * Sets player_version
      *
-     * @param int|null $player_version Version of the player: the gateway frame wrapper that shows the widget, and the host bridge it speaks with the embedding page and the widget (currently 4). Raised when the messages between page, frame, and widget change in a way a widget could notice, such as a new `widgetic:host` field or a new forwarded event (2 added `entries`, 3 added `adapters`, 4 added `entries.writeToken`). It is not `widgetVersion` (the version of the published widget) and not the `version` inside a `widgetic:host` message.
+     * @param int|null $player_version Version of the player: the gateway frame wrapper that shows the widget, and the host bridge it speaks with the embedding page and the widget (currently 6). Raised when the messages between page, frame, and widget change in a way a widget could notice, such as a new `widgetic:host` field or a new forwarded event (2 added `entries`, 3 added `adapters`, 4 added `entries.writeToken`, 5 added the A/B goal: `widgetic:ab-goal` to the widget and `widgetic:goal` back, 6 added the watch of a workflow: `widgetic:workflow-watch` to the widget, the watched values in `widgetic:submitted` and the watched action in `widgetic:goal`). It is not `widgetVersion` (the version of the published widget) and not the `version` inside a `widgetic:host` message.
      *
      * @return self
      */
@@ -606,6 +627,60 @@ class GetPublicCompositionEmbed200Response implements ModelInterface, ArrayAcces
             throw new \InvalidArgumentException('non-nullable entry_write_token cannot be null');
         }
         $this->container['entry_write_token'] = $entry_write_token;
+
+        return $this;
+    }
+
+    /**
+     * Gets entries
+     *
+     * @return \WidgeticApi\Model\GetPublicCompositionEmbed200ResponseEntries|null
+     */
+    public function getEntries()
+    {
+        return $this->container['entries'];
+    }
+
+    /**
+     * Sets entries
+     *
+     * @param \WidgeticApi\Model\GetPublicCompositionEmbed200ResponseEntries|null $entries entries
+     *
+     * @return self
+     */
+    public function setEntries($entries)
+    {
+        if (is_null($entries)) {
+            throw new \InvalidArgumentException('non-nullable entries cannot be null');
+        }
+        $this->container['entries'] = $entries;
+
+        return $this;
+    }
+
+    /**
+     * Gets adapters
+     *
+     * @return \WidgeticApi\Model\GetPublicCompositionEmbed200ResponseAdapters|null
+     */
+    public function getAdapters()
+    {
+        return $this->container['adapters'];
+    }
+
+    /**
+     * Sets adapters
+     *
+     * @param \WidgeticApi\Model\GetPublicCompositionEmbed200ResponseAdapters|null $adapters adapters
+     *
+     * @return self
+     */
+    public function setAdapters($adapters)
+    {
+        if (is_null($adapters)) {
+            throw new \InvalidArgumentException('non-nullable adapters cannot be null');
+        }
+        $this->container['adapters'] = $adapters;
 
         return $this;
     }
@@ -768,6 +843,33 @@ class GetPublicCompositionEmbed200Response implements ModelInterface, ArrayAcces
             throw new \InvalidArgumentException('non-nullable iframe_allow cannot be null');
         }
         $this->container['iframe_allow'] = $iframe_allow;
+
+        return $this;
+    }
+
+    /**
+     * Gets media
+     *
+     * @return \WidgeticApi\Model\GetPublicCompositionEmbed200ResponseMedia|null
+     */
+    public function getMedia()
+    {
+        return $this->container['media'];
+    }
+
+    /**
+     * Sets media
+     *
+     * @param \WidgeticApi\Model\GetPublicCompositionEmbed200ResponseMedia|null $media media
+     *
+     * @return self
+     */
+    public function setMedia($media)
+    {
+        if (is_null($media)) {
+            throw new \InvalidArgumentException('non-nullable media cannot be null');
+        }
+        $this->container['media'] = $media;
 
         return $this;
     }

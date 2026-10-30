@@ -72,6 +72,18 @@ class PartnersApiTest extends TestCase
     }
 
     /**
+     * Test case for confirmPartnerAdapterConnection_0
+     *
+     * Confirm a partner's adapter address with the code that was emailed to it.
+     *
+     */
+    public function testConfirmPartnerAdapterConnection0()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for createPartnerExtraCreditsInvoice_0
      *
      * Buy extra credits for a partner.
@@ -312,6 +324,18 @@ class PartnersApiTest extends TestCase
     }
 
     /**
+     * Test case for listPartnerWorkflowPresets_0
+     *
+     * List the workflows a partner offers as places to start.
+     *
+     */
+    public function testListPartnerWorkflowPresets0()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for removePartnerAdapterConnection_0
      *
      * Remove an adapter key from a partner.
@@ -354,6 +378,18 @@ class PartnersApiTest extends TestCase
      *
      */
     public function testRemovePartnerStorageDestination0()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for removePartnerWorkflowPreset_0
+     *
+     * Stop offering a workflow as a place to start.
+     *
+     */
+    public function testRemovePartnerWorkflowPreset0()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -462,6 +498,18 @@ class PartnersApiTest extends TestCase
      *
      */
     public function testSetPartnerStorageDestination0()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for setPartnerWorkflowPreset_0
+     *
+     * Offer a workflow as a place to start, or replace what a key offers.
+     *
+     */
+    public function testSetPartnerWorkflowPreset0()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
